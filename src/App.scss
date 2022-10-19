@@ -1,4 +1,4 @@
-/* @import "./util"; */
+@import "./util";
 
 .App {
   min-height: 100vh;
@@ -8,8 +8,8 @@
   overflow-x: hidden;
   font-size: 0.937rem;
   -ms-overflow-style: none;
-  /* color: var(--font-color);
-  background-color: var(--primary-color); */
+  color: var(--font-color);
+  background-color: var(--primary-color);
   scroll-behavior: smooth;
 }
 

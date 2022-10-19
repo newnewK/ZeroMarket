@@ -1,0 +1,109 @@
+// font
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap");
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 200, 300, 400, 500, 600;
+  font-style: normal;
+}
+
+// theme
+:root {
+  --primary-color: #fff;
+  --font-color: #282a31;
+  --hover-bg: #edeeed;
+  --non-hover: #878888;
+  --colorFg1: #666;
+  --colorFg2: #edeeed;
+  --colorFg3: #fff;
+  --colorFg4: #1a1a1a;
+  --colorFg5: #666;
+  --colorFg6: #eee;
+  // #1a1a1a
+}
+
+.dark-theme {
+  --primary-color: #121212;
+  --font-color: #fff;
+  --hover-bg: #222224;
+  --non-hover: #333;
+  --colorFg1: #999;
+  --colorFg2: #222224;
+  --colorFg3: #121212;
+  --colorFg4: #fff;
+  --colorFg5: #777;
+  --colorFg6: #333;
+}
+
+//reset
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+button {
+  border: none;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p,
+em {
+  margin: 0;
+}
+
+em {
+  font-style: normal;
+}
+
+ul {
+  padding: 0;
+  li {
+    list-style: none;
+  }
+}
+
+//common Wrap
+@mixin wrap {
+  max-width: 1296px;
+  margin: 0 auto;
+  @media screen and (max-width: 1439px) {
+    max-width: 952px;
+  }
+  @media screen and (max-width: 1023px) {
+    max-width: 900px;
+  }
+  @media screen and (max-width: 950px) {
+    max-width: calc(100vw - 80px);
+  }
+  @media screen and (max-width: 767px) {
+    max-width: calc(100vw - 40px);
+  }
+}
+
+// flex & grid
+@mixin flex($just: center, $align: center, $flex: flex) {
+  display: $flex;
+  justify-content: $just;
+  align-items: $align;
+}
+
+@mixin grid($colums: 1fr 1fr 1fr 1fr, $row: minmax(20px, auto), $gap: 30px) {
+  display: grid;
+  grid-template-columns: $colums;
+  grid-auto-rows: $row;
+  gap: $gap;
+}
+
+// text overflow
+@mixin txt-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

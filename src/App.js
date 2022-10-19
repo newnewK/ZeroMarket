@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import { Routes, Route } from "react-router-dom";
+import Header from "./common/Header";
+import Footer from "./common/Footer";
+import Main from "./components/Main";
+// import * as React from "react";
+import Login from "./components/Login";
+import { useState } from "react";
 
 function App() {
+  let [theme, setTheme] = useState(true);
+  let light = () => {
+    setTheme(true);
+  };
+  let dark = () => {
+    setTheme(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`App ${theme === false ? "dark-theme" : ""}`}>
+      <Header light={light} dark={dark} />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign-up" element={<div></div>} />
+        <Route path="/product/:id" element={<div></div>} />
+        <Route path="*" element={<div>404Page</div>} />
+        {/* <Route path="" element={} /> */}
+      </Routes>
+      <Footer />
     </div>
   );
 }
