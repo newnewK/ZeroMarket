@@ -8,6 +8,9 @@
   font-style: normal;
 }
 
+$main-color: #03c3bd;
+//   #03c3a4
+
 // theme
 :root {
   --primary-color: #fff;
@@ -20,7 +23,16 @@
   --colorFg4: #1a1a1a;
   --colorFg5: #666;
   --colorFg6: #eee;
-  // #1a1a1a
+  --colorFg7: #fd5c5c;
+  --colorFg8: #fff;
+  --colorFg9: rgba(0, 0, 0, 0.15);
+  --colorFg10: #282a31;
+  --colorFg11: #282a31;
+  --colorFg12: #f2f4f6;
+  --colorFg13: rgba(0, 0, 0, 0.54);
+  --colorFg14: #f5f7fa;
+  --colorFg15: #fff;
+  // rgba(0, 0, 0, 0.54)
 }
 
 .dark-theme {
@@ -34,6 +46,16 @@
   --colorFg4: #fff;
   --colorFg5: #777;
   --colorFg6: #333;
+  --colorFg7: #fd5c5c;
+  --colorFg8: #222224;
+  --colorFg9: #222224;
+  --colorFg10: #222224;
+  --colorFg11: #8c8c8c;
+  --colorFg12: #222224;
+  --colorFg13: #888;
+  --colorFg14: #171717;
+  --colorFg15: #222;
+  // #f2f4f6
 }
 
 //reset
@@ -68,22 +90,66 @@ ul {
     list-style: none;
   }
 }
+//reset
+input {
+  &:focus {
+    outline: none;
+  }
+}
 
 //common Wrap
 @mixin wrap {
   max-width: 1296px;
+  min-width: 1296px;
   margin: 0 auto;
   @media screen and (max-width: 1439px) {
     max-width: 952px;
+    min-width: 952px;
   }
   @media screen and (max-width: 1023px) {
     max-width: 900px;
+    min-width: 900px;
   }
   @media screen and (max-width: 950px) {
     max-width: calc(100vw - 80px);
+    min-width: calc(100vw - 80px);
   }
   @media screen and (max-width: 767px) {
     max-width: calc(100vw - 40px);
+    min-width: calc(100vw - 40px);
+  }
+}
+
+// 공통 여백
+@mixin commonPadding($ptb: 0) {
+  padding: $ptb 8.333%; // 160px
+
+  @media screen and (max-width: 1200px) {
+    padding: $ptb 6.666%; // 80px
+  }
+
+  @media screen and (max-width: 1080px) {
+    padding: $ptb 4.629%; // 50px
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: $ptb 20px;
+  }
+}
+
+@mixin commonMargin($mtb: 0) {
+  margin: $mtb 8.333%; // 160px
+
+  @media screen and (max-width: 1200px) {
+    margin: $mtb 6.666%; // 80px
+  }
+
+  @media screen and (max-width: 1000px) {
+    margin: $mtb 5%; // 50px
+  }
+
+  @media screen and (max-width: 768px) {
+    margin: $mtb 20px;
   }
 }
 
@@ -101,9 +167,121 @@ ul {
   gap: $gap;
 }
 
+@mixin submitBtn {
+  width: 100%;
+  height: 48px;
+  border-radius: 3px;
+  color: #fff;
+  background-color: $main-color;
+  font-size: 1.062rem;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
 // text overflow
 @mixin txt-overflow {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+// input
+@mixin form_input {
+  border: 1px solid var(--colorFg9);
+  padding: 0 10px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  transition: 0.25s ease;
+  height: 48px;
+  width: 100%;
+  font-weight: 300;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--colorFg8);
+  color: var(--font-color);
+
+  &:hover {
+    border-color: var(--colorFg10);
+  }
+
+  &:focus {
+    border-color: var(--colorFg10);
+  }
+
+  &::placeholder {
+    color: var(--font-color);
+    font-weight: 300;
+  }
+}
+@mixin wngField {
+  input {
+    border-color: var(--colorFg7);
+  }
+
+  em {
+    font-style: normal;
+    font-size: 0.875rem;
+    margin-top: 5px;
+    display: block;
+    color: var(--colorFg7);
+  }
+}
+
+@mixin checkbox {
+  cursor: pointer;
+  @include flex($just: flex-start);
+  font-size: 0.832rem;
+  color: var(--colorFg11);
+
+  input {
+    display: none;
+  }
+
+  span {
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--colorFg9);
+    display: block;
+    margin-right: 5px;
+    position: relative;
+    background: var(--primary-color);
+
+    &:after,
+    &::before {
+      content: "";
+      width: 2px;
+      position: absolute;
+      background: var(--font-color);
+      display: none;
+    }
+
+    &:before {
+      transform: rotate(-45deg);
+      left: 1px;
+      top: 6px;
+      transform-origin: left top;
+      transition: 0.35s ease;
+    }
+
+    &:after {
+      transform: rotate(45deg);
+      left: 4px;
+      bottom: 4px;
+      transform-origin: left bottom;
+      // transition: delay 0.35s;
+    }
+  }
+
+  input:checked + span {
+    &:before {
+      height: 5px;
+      transition: all 0.35s ease;
+      display: block;
+    }
+
+    &:after {
+      height: 8px;
+      transition: all 0.35s ease;
+      display: block;
+    }
+  }
 }

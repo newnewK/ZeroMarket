@@ -1,0 +1,255 @@
+@import "./../util";
+
+// find 컴포넌트
+.find-wrap {
+  height: calc(100vh - 57px);
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 154px;
+    width: 100vw;
+    height: 1px;
+    background-color: var(--colorFg2);
+  }
+
+  .top-wrap {
+    @include wrap;
+
+    .find-title {
+      font-size: 1.875rem;
+      padding: 50px 0 20px;
+    }
+
+    ul {
+      @include flex($just: flex-start);
+      padding-left: 0;
+      margin: 0;
+
+      li {
+        margin-right: 20px;
+        cursor: pointer;
+        padding: 15px 0;
+
+        a {
+          color: var(--colorFg13);
+          font-size: 0.937rem;
+        }
+
+        &.active {
+          position: relative;
+
+          a {
+            color: $main-color;
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: $main-color;
+          }
+        }
+      }
+    }
+  }
+
+  .find-user-warp {
+    background-color: var(--colorFg14);
+    flex: 1;
+  }
+}
+
+// find Tab
+.user-find {
+  margin: 0 auto;
+  padding: 40px 20px;
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+
+  .find-user-txt {
+    margin: 0;
+    font-size: 0.937rem;
+    line-height: 1.3;
+    margin-bottom: 40px;
+    color: var(--colorFg13);
+  }
+
+  .user-form {
+    input {
+      @include form_input;
+      margin-bottom: 15px;
+    }
+
+    .field {
+      position: relative;
+      margin-bottom: 15px;
+
+      label {
+        display: block;
+        font-size: 1rem;
+        padding-bottom: 5px;
+      }
+
+      input {
+        margin-bottom: 0;
+      }
+
+      em,
+      .pwWng {
+        display: none;
+      }
+
+      &.wngField {
+        @include wngField;
+      }
+
+      &.wngPw {
+        @include wngField;
+        .pwWng {
+          font-style: normal;
+          font-size: 0.875rem;
+          margin-top: 5px;
+          display: block;
+          color: var(--colorFg7);
+        }
+      }
+
+      .pw {
+        padding-right: 45px;
+      }
+
+      .pw-btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 48px;
+        width: 45px;
+        background-color: transparent;
+
+        svg {
+          width: 20px;
+          fill: #adb5bd;
+        }
+      }
+    }
+  }
+
+  .user-submit-btn {
+    @include submitBtn;
+    transition: 0.25s ease;
+    margin-top: 15px;
+
+    &:hover {
+      //   background-color: $dark-main-color;
+    }
+  }
+
+  .find-info {
+    font-size: 1.75rem;
+    margin: 24px 0 12px;
+  }
+
+  .go-site-login {
+    @include submitBtn;
+    transition: 0.25s ease;
+    display: block;
+    text-align: center;
+    line-height: 45px;
+  }
+
+  .before-find {
+    background-color: var(--colorFg15);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 48px;
+    border-radius: 3px;
+    margin-top: 15px;
+    transition: 0.25s ease;
+    color: var(--colorFg13);
+    font-size: 1.062rem;
+
+    &:hover {
+      //   border-color: rgba($black-color, 0.3);
+      //   color: rgba($font-color, 0.85);
+    }
+  }
+}
+
+// 비밀번호 변경 완료 후 모달
+.completion-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  .completion-inner {
+    background-color: #fff;
+    min-width: 300px;
+    max-width: 500px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    margin: 100px auto;
+    padding: 30px;
+    position: relative;
+
+    .closeModal {
+      background-color: transparent;
+      padding: 20px;
+      position: absolute;
+      left: 7px;
+      top: 20px;
+
+      svg {
+        fill: var(--font-color);
+        width: 20px;
+      }
+    }
+
+    .title {
+      padding-top: 40px;
+      color: #44484b;
+      margin-bottom: 0;
+    }
+
+    .txt {
+      margin: 0;
+      padding-top: 5px;
+      color: rgba(0, 0, 0, 0.75);
+      font-size: 1.062rem;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+
+    .login-go {
+      @include flex($just: flex-end);
+
+      .go-to-login {
+        display: inline-block;
+        background-color: $main-color;
+        padding: 10px 15px;
+        color: #fff;
+        border-radius: 3px;
+        margin-top: 30px;
+        font-weight: 400;
+        letter-spacing: 1px;
+        transition: 0.25s ease;
+
+        &:hover {
+          //   background: $dark-main-color;
+        }
+      }
+    }
+  }
+}

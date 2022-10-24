@@ -1,0 +1,153 @@
+@import "./../util";
+
+.product-wrap {
+  @include wrap;
+
+  .img-wrap {
+    width: 100%;
+    height: 350px;
+    background-color: #ddd;
+
+    .swiper {
+      height: inherit;
+
+      .swiper-wrapper {
+        height: inherit;
+      }
+    }
+  }
+
+  .product-user {
+    @include flex($just: space-between);
+    padding: 15px 0;
+    border-bottom: 1px solid var(--colorFg2);
+
+    .user-info {
+      @include flex;
+      background-color: transparent;
+      padding: 0;
+
+      .img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #ddd;
+        background-size: cover;
+      }
+
+      p {
+        color: var(--colorFg11);
+        margin-left: 8px;
+        font-size: 0.875rem;
+      }
+    }
+
+    .btn-wrap {
+      @include flex($just: flex-start);
+      button {
+        background-color: transparent;
+        border: 1px solid var(--hover-bg);
+        padding: 10px;
+        border-radius: 3px;
+        margin-right: 10px;
+
+        svg {
+          width: 16px;
+
+          .non-like {
+            fill: var(--colorFg4);
+          }
+        }
+      }
+
+      .chat {
+        display: block;
+        padding: 10px 25px;
+        background-color: $main-color;
+        color: #fff;
+        border-radius: 3px;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .product-info {
+    padding-top: 20px;
+    .category {
+      padding: 8px 0;
+      display: inline-block;
+      font-size: 0.812rem;
+      letter-spacing: -0.6px;
+      color: #868e96;
+    }
+    .tit {
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+    .price {
+      font-size: 1.125rem;
+      font-weight: bold;
+    }
+    .txt-wrap {
+      margin: 8px 0 20px;
+
+      .info-txt {
+        font-size: 17px;
+      }
+    }
+  }
+
+  .dock-bar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    background-color: var(--primary-color);
+    z-index: 9;
+    @include flex($just: flex-start);
+
+    button {
+      background-color: transparent;
+      border: 1px solid var(--hover-bg);
+      padding: 14px;
+      border-radius: 3px;
+      margin-right: 10px;
+
+      svg {
+        width: 16px;
+
+        .non-like {
+          fill: var(--colorFg4);
+        }
+      }
+    }
+
+    .chat {
+      background-color: $main-color;
+      color: #fff;
+      border-radius: 3px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      padding: 15px 0;
+      flex: 1;
+      display: block;
+      text-align: center;
+      font-size: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    min-width: 100vw;
+
+    .product-user {
+      @include wrap;
+    }
+
+    .product-info {
+      @include wrap;
+    }
+  }
+}

@@ -1,0 +1,102 @@
+@import "./../util";
+
+.login-wrap {
+  @include flex;
+
+  .login-inner {
+    width: 400px;
+    padding: 50px 40px;
+    box-sizing: border-box;
+    border-radius: 3px;
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      img {
+        height: 32px;
+      }
+      padding-bottom: 20px;
+    }
+
+    form {
+      .field {
+        margin-bottom: 15px;
+
+        input {
+          @include form_input;
+        }
+
+        em {
+          display: none;
+        }
+
+        &.wngField {
+          @include wngField;
+        }
+
+        &.allWng {
+          input {
+            border-color: var(--colorFg7);
+            background: rgba(var(--colorFg7), 0.03);
+          }
+
+          .wngTxt {
+            font-style: normal;
+            font-size: 0.875rem;
+            margin-top: 5px;
+            display: block;
+            color: var(--colorFg7);
+          }
+        }
+      }
+
+      .login-action {
+        @include flex($just: space-between);
+
+        label {
+          @include checkbox;
+        }
+
+        .find {
+          color: var(--colorFg11);
+          font-size: 0.832rem;
+        }
+      }
+
+      .login-btn {
+        width: 100%;
+        height: 48px;
+        margin-top: 50px;
+        background: $main-color;
+        color: #fff;
+        font-size: 1.062rem;
+        border-radius: 3px;
+        letter-spacing: 1px;
+      }
+    }
+
+    .sign-up-wrap {
+      font-size: 0.832rem;
+      margin-top: 30px;
+      text-align: center;
+      color: var(--colorFg11);
+      a {
+        margin-left: 8px;
+        display: inline-block;
+        text-decoration: underline;
+        color: $main-color;
+      }
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .login-inner {
+      padding: 0 40px;
+      border: none;
+      height: 60vh;
+    }
+  }
+} // login wrap End
