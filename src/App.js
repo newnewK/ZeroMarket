@@ -1,5 +1,5 @@
 import "./App.scss";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Header from "./common/Header";
 import Footer from "./common/Footer";
 import Main from "./components/Main";
@@ -25,9 +25,14 @@ function App() {
     setTheme(false);
   };
 
+  const location = useLocation();
+  console.log(location.pathname);
+  let current = location.pathname;
+
   return (
     <div className={`App ${theme === false ? "dark-theme" : ""}`}>
-      <Header light={light} dark={dark} />
+      {current === "/chatting" ? null : <Header light={light} dark={dark} />}
+
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
@@ -39,12 +44,16 @@ function App() {
         <Route path="/product/:id" element={<Product />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/chatlist" element={<ChatList />} />
-        <Route path="/chatting" element={<Chatting />} />
+        <Route
+          path="/chatting"
+          element={<Chatting light={light} dark={dark} />}
+        />
         <Route path="/liked" element={<Liked />} />
         <Route path="*" element={<div>404Page</div>} />
         {/* <Route path="" element={} /> */}
       </Routes>
-      <Footer />
+
+      {current === "/chatting" ? null : <Footer />}
     </div>
   );
 }

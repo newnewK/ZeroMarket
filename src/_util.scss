@@ -8,8 +8,8 @@
   font-style: normal;
 }
 
-$main-color: #03c3bd;
-//   #03c3a4
+$main-color: #0ed5d0;
+//  #11ded9  #23dbd6    #03c3bd
 
 // theme
 :root {
@@ -21,7 +21,7 @@ $main-color: #03c3bd;
   --colorFg2: #edeeed;
   --colorFg3: #fff;
   --colorFg4: #1a1a1a;
-  --colorFg5: #666;
+  --colorFg5: #90949c; //#666
   --colorFg6: #eee;
   --colorFg7: #fd5c5c;
   --colorFg8: #fff;
@@ -32,6 +32,12 @@ $main-color: #03c3bd;
   --colorFg13: rgba(0, 0, 0, 0.54);
   --colorFg14: #f5f7fa;
   --colorFg15: #fff;
+  --colorFg16: #44484b;
+  --colorFg17: #60656a;
+  --colorFg18: #edeeed;
+  --colorFg19: #f5f7fa;
+  --colorFg20: #e6eaed;
+  --colorFg21: #fff;
   // rgba(0, 0, 0, 0.54)
 }
 
@@ -55,6 +61,12 @@ $main-color: #03c3bd;
   --colorFg13: #888;
   --colorFg14: #171717;
   --colorFg15: #222;
+  --colorFg16: #b0b0b0;
+  --colorFg17: #a3a3a3;
+  --colorFg18: #353535;
+  --colorFg19: #363636;
+  --colorFg20: #1c1c1c;
+  --colorFg21: #363636;
   // #f2f4f6
 }
 

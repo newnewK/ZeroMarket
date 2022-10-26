@@ -1,0 +1,372 @@
+@import "./../util";
+
+.chatting-wrap {
+  min-height: 100vh;
+
+  .chat-header {
+    width: 100vw;
+    height: 48px;
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    .header-inner {
+      @include wrap;
+      @include flex($just: space-between);
+      .back {
+        background-color: transparent;
+        width: 40px;
+        height: 40px;
+        svg {
+          width: 20px;
+          fill: var(--font-color);
+        }
+      }
+
+      .name {
+        font-size: 0.937rem;
+        font-weight: 500;
+      }
+
+      .more {
+        position: relative;
+
+        .more-btn {
+          background-color: transparent;
+          width: 40px;
+          height: 40px;
+          svg {
+            width: 20px;
+            .stroke-svg {
+              stroke: var(--font-color);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .chat-info {
+    background-color: var(--colorFg14);
+    overflow-y: auto;
+    // min-height: calc(100vh - 110px);
+
+    ul {
+      @include wrap;
+      margin-top: 60px;
+      padding-bottom: 60px;
+
+      li {
+        .msg {
+        }
+
+        .msg-received {
+          @include flex($just: flex-start, $align: flex-start);
+
+          .user-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+
+            .img {
+              width: inherit;
+              height: inherit;
+              display: block;
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+              background: #ddd;
+            }
+          }
+
+          .msg-txt {
+            margin-left: 10px;
+            background: var(--colorFg21);
+            color: var(--font-color);
+            box-shadow: 0 1px 2px 0 var(--colorFg20);
+            border-radius: 3px;
+            padding: 12px;
+            max-width: 264px;
+            word-break: break-all;
+          }
+        }
+
+        .sent-received {
+          @include flex($just: flex-end, $align: flex-start);
+
+          .msg-txt {
+            background-color: $main-color;
+            color: #fff;
+            box-shadow: 0 1px 2px 0 var(--colorFg20);
+            border-radius: 3px;
+            padding: 12px;
+            max-width: 264px;
+            word-break: break-all;
+          }
+        }
+
+        .date {
+          margin-top: 5px;
+
+          span {
+            display: block;
+            color: #90949c;
+            font-size: 0.75rem;
+          }
+
+          &.receoved-date {
+            margin-left: 40px;
+            text-align: left;
+          }
+
+          &.send-date {
+            span {
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .write-msg {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    z-index: 9;
+    box-sizing: border-box;
+    padding: 12px 0;
+    border-top: 1px solid var(--colorFg2);
+    background-color: var(--primary-color);
+
+    .write-inner {
+      @include flex($just: flex-start);
+      @include wrap;
+
+      .file {
+        @include flex;
+        height: 40px;
+        width: 40px;
+        margin-right: 10px;
+        cursor: pointer;
+
+        input {
+          display: none;
+        }
+
+        svg {
+          width: 25px;
+          fill: var(--colorFg11);
+        }
+      }
+
+      .msg-form {
+        @include flex;
+        background: var(--colorFg19);
+        border: 1px solid var(--colorFg2);
+        border-radius: 20px;
+        padding: 8px 20px;
+        flex: 1;
+
+        textarea {
+          resize: none;
+          border: none;
+          background-color: transparent;
+          padding: 0;
+          width: 100%;
+          height: 24px;
+          max-height: 110px;
+          line-height: 24px;
+          color: var(--font-color);
+          font-size: 15px;
+
+          &:focus {
+            outline: none;
+          }
+
+          &::placeholder {
+            color: #777;
+          }
+        }
+      }
+
+      .send-btn {
+        width: 40px;
+        height: 40px;
+        margin-left: 10px;
+        background-color: transparent;
+
+        svg {
+          fill: var(--colorFg11);
+          width: 20px;
+        }
+      }
+    }
+  }
+
+  .more-modal {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 9;
+
+    .modal-inner {
+      background: var(--colorFg12);
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100vh;
+      width: 400px;
+      padding: 20px;
+      box-sizing: border-box;
+
+      h5 {
+        font-size: 1.125rem;
+        padding-bottom: 20px;
+      }
+
+      .msg-info {
+        margin: 0;
+        li {
+          border-bottom: 1px solid var(--colorFg2);
+          padding: 15px 0;
+
+          .msg-info-title {
+            font-size: 1rem;
+            font-weight: 600;
+          }
+
+          .user-info {
+            margin-top: 15px;
+
+            a {
+              @include flex($just: flex-start);
+
+              .user-img {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                overflow: hidden;
+
+                .img {
+                  display: block;
+                  width: inherit;
+                  height: inherit;
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  background: #ddd;
+                }
+              }
+
+              .user-name {
+                font-size: 0.937rem;
+                margin-left: 8px;
+                font-weight: 400;
+                color: var(--colorFg13);
+              }
+            }
+          }
+
+          .product-info {
+            margin-top: 15px;
+
+            a {
+              @include flex($just: flex-start);
+
+              .product-img {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                overflow: hidden;
+
+                .img {
+                  display: block;
+                  width: inherit;
+                  height: inherit;
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  background: #ddd;
+                }
+              }
+
+              .product-txt {
+                margin-left: 8px;
+                .product-name {
+                  font-size: 0.875rem;
+                  font-weight: 400;
+                  color: var(--colorFg13);
+                  display: block;
+                  line-height: 1.5;
+                }
+                .product-price {
+                  font-size: 0.937rem;
+                  font-weight: 600;
+                  color: var(--font-color);
+                  em {
+                    font-weight: 400;
+                    font-size: 0.875rem;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .btn-wrap {
+        @include flex($just: space-between);
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        padding: 12px 10px;
+        border-top: 1px solid var(--colorFg2);
+        width: inherit;
+        box-sizing: border-box;
+
+        button {
+          background: transparent;
+          width: 40px;
+          height: 40px;
+
+          &.back {
+            background-color: transparent;
+
+            svg {
+              width: 18px;
+              fill: var(--font-color);
+            }
+          }
+        }
+
+        .right-btn {
+          button {
+            height: 40px;
+
+            svg {
+              width: 18px;
+              fill: var(--font-color);
+
+              &.star {
+                fill: none;
+                stroke: var(--font-color);
+                stroke-width: 2px;
+
+                &.full-star {
+                  fill: var(--font-color);
+                  stroke-width: 1px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

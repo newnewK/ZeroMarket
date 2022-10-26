@@ -1,0 +1,136 @@
+@import "./../util";
+
+// @include wrap;
+.chatList-wrap {
+  .chatList-inner {
+    @include wrap;
+
+    .list-wrap {
+      margin-top: 20px;
+      .list {
+        border-bottom: 1px solid var(--colorFg2);
+        padding: 20px 0;
+        position: relative;
+
+        a {
+          .user-info-wrap {
+            @include flex($just: flex-start);
+
+            .user-img {
+              .profile-img-wrap {
+                display: block;
+                width: 40px;
+                height: 40px;
+                overflow: hidden;
+                border-radius: 50%;
+
+                .profile-img {
+                  display: block;
+                  height: inherit;
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  background-color: #ddd;
+                }
+              }
+            }
+
+            .user-name {
+              flex: 1;
+              margin-left: 8px;
+              .name {
+                color: var(--colorFg4);
+                font-size: 0.875rem;
+                display: block;
+                line-height: 1.4;
+              }
+              .product-title {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-size: 0.812rem;
+                color: var(--colorFg11);
+              }
+            }
+          }
+
+          .chat-contanier {
+            padding-top: 10px;
+            .chat-contents {
+              font-size: 0.937rem;
+              color: var(--colorFg5);
+            }
+
+            .date-contents {
+              color: var(--colorFg5);
+              font-weight: 400;
+              font-size: 0.75rem;
+              display: block;
+              padding-top: 10px;
+            }
+          }
+        }
+
+        .more-wrap {
+          .more-btn {
+            @include flex;
+            position: absolute;
+            right: 0;
+            top: 20px;
+            background-color: transparent;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: ease 0.2s;
+            margin: 0;
+
+            svg {
+              path {
+                fill: var(--font-color);
+              }
+            }
+
+            .more-path {
+              fill: var(--font-color);
+              stroke: var(--font-color);
+            }
+
+            &:hover {
+              background-color: var(--hover-bg);
+            }
+          }
+
+          .more-list {
+            background-color: var(--colorFg8);
+            border: 1px solid var(--colorFg2);
+            position: absolute;
+            right: 0;
+            top: 60px;
+            margin: 0;
+            border-radius: 2px;
+
+            &:after {
+              content: "";
+              width: calc(100% - 10px);
+              height: 1px;
+              background: var(--colorFg18);
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+            }
+
+            button {
+              display: block;
+              background-color: transparent;
+              padding: 10px 20px;
+              color: var(--colorFg1);
+              font-size: 0.875rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
