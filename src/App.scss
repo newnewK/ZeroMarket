@@ -11,6 +11,15 @@
   color: var(--font-color);
   background-color: var(--primary-color);
   scroll-behavior: smooth;
+
+  &.search-open {
+    main {
+      height: calc(100vh - 100px);
+    }
+    .footer {
+      display: none;
+    }
+  }
 }
 
 .footer {
@@ -33,5 +42,5 @@
 .title {
   font-size: 30px;
   font-weight: 700;
-  padding-top: 60px;
+  padding-top: 40px;
 }

@@ -1,0 +1,199 @@
+@import "./../util";
+
+.mypage-wrap {
+  .mypage-container {
+    @include wrap;
+
+    .user-info {
+      @include flex($just: flex-start);
+
+      .user-img {
+        min-width: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        .img-inner {
+          padding-top: 100%;
+          background-color: #ddd;
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+      }
+
+      .user-name-intro {
+        margin-left: 20px;
+        flex: 1;
+        position: relative;
+
+        .profile {
+          @include flex($just: space-between);
+          padding-bottom: 15px;
+          .name {
+            font-size: 1.75rem;
+            color: var(--font-color);
+          }
+          .profile-setting {
+            background-color: $main-color;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 3px;
+          }
+        }
+
+        .intro {
+          color: var(--colorFg5);
+          word-break: keep-all;
+        }
+      }
+    }
+    .mobile-setting {
+      display: none;
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px 0;
+      background-color: $main-color;
+      color: #fff;
+      font-size: 1.125rem;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+  }
+
+  .mypage-tab-container {
+    margin-top: 30px;
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 48px;
+      width: 100vw;
+      height: 1px;
+      background-color: var(--colorFg2);
+    }
+
+    .mypage-tabs {
+      @include wrap;
+      @include flex($just: flex-start);
+
+      li {
+        margin-right: 20px;
+        cursor: pointer;
+        padding: 15px 0;
+        position: relative;
+
+        &.active {
+          a {
+            color: $main-color;
+          }
+
+          &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: #0ed5d0;
+          }
+        }
+        a {
+          color: var(--colorFg13);
+          font-size: 0.937rem;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .tab-info {
+      @include wrap;
+      padding: 40px 0;
+    }
+  }
+}
+
+// sale 판매
+.sale-wrap {
+  @include list-content;
+
+  .completed-btn {
+    width: 100%;
+    font-size: 0.937rem;
+    padding: 15px 0;
+    background-color: transparent;
+    color: var(--font-color);
+    border-top: 1px solid var(--colorFg6);
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  @media screen and (max-width: 767px) {
+    .list-content {
+      width: calc((100% - 30px) / 2);
+
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+
+      &:nth-child(3n) {
+        margin-right: 30px;
+      }
+    }
+  }
+}
+
+// complated 판매 완료
+.completed-wrap {
+  @include list-content;
+  @media screen and (max-width: 767px) {
+    .list-content {
+      width: calc((100% - 30px) / 2);
+
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+
+      &:nth-child(3n) {
+        margin-right: 30px;
+      }
+    }
+  }
+}
+
+// review 리뷰
+.review-wrap {
+  .popup-wrap {
+    .review-popup {
+      background-color: var(--colorFg14);
+      padding: 20px;
+      border-radius: 3px;
+      margin-bottom: 15px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .tit {
+        font-weight: 700;
+        font-size: 1.125rem;
+        font-family: sans-serif;
+      }
+
+      .btn-wrap {
+        padding-top: 30px;
+
+        button {
+          padding: 10px 20px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  .review-list-wrap {
+  }
+}

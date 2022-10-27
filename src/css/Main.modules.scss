@@ -47,7 +47,7 @@
             overflow: hidden;
             position: relative;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             .thumb-inner {
               padding-top: calc(100% - 0px);
 
@@ -59,31 +59,7 @@
             }
           }
           .txt {
-            font-family: NotoSansKR, sans-serif;
-
-            .tit {
-              @include txt-overflow;
-              font-weight: 400;
-              color: var(--font-color);
-              font-size: 1rem;
-            }
-            .category {
-              font-size: 0.812rem;
-              color: var(--colorFg5);
-              display: block;
-              font-weight: 400;
-              padding: 3px 0 12px;
-            }
-            .price {
-              font-weight: 700;
-              color: var(--font-color);
-              font-size: 1.062rem;
-
-              em {
-                font-weight: 500;
-                font-size: 1rem;
-              }
-            }
+            @include product-info;
           }
         }
       }

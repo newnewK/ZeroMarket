@@ -49,7 +49,11 @@
   .chat-info {
     background-color: var(--colorFg14);
     overflow-y: auto;
-    // min-height: calc(100vh - 110px);
+    height: 100vh;
+
+    &.not-scroll {
+      overflow-y: hidden;
+    }
 
     ul {
       @include wrap;
@@ -210,24 +214,51 @@
     position: fixed;
     right: 0;
     top: 0;
-    width: 100vw;
+    width: 0;
     height: 100vh;
     background: rgba(0, 0, 0, 0.15);
     z-index: 9;
+    opacity: 0;
+
+    &.modal-open {
+      width: 100vw;
+      opacity: 1;
+    }
 
     .modal-inner {
       background: var(--colorFg12);
       position: absolute;
-      right: 0;
+      right: -100vw;
       top: 0;
       height: 100vh;
       width: 400px;
       padding: 20px;
       box-sizing: border-box;
+      transition: all 0.3s ease-out 0s;
 
-      h5 {
-        font-size: 1.125rem;
+      &.open {
+        right: 0;
+      }
+
+      .modal-top {
+        @include flex($just: space-between);
         padding-bottom: 20px;
+        h5 {
+          font-size: 1.125rem;
+        }
+
+        .close-btn {
+          @include flex;
+          width: 40px;
+          height: 40px;
+          padding: 0;
+          background-color: transparent;
+
+          svg {
+            width: 20px;
+            fill: var(--font-color);
+          }
+        }
       }
 
       .msg-info {

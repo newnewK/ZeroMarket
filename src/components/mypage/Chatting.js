@@ -1,8 +1,11 @@
-import { useCallback, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./../../css/Chatting.modules.scss";
 
-export default function Chatting({ light, dark }) {
+export default function Chatting() {
+  //뒤로가기
+  const navigate = useNavigate();
+
   //textarea 높이 자동조절
   let [textareaContent, setTextareaContent] = useState("");
   // 줄바꿈 위치를 저장
@@ -43,14 +46,20 @@ export default function Chatting({ light, dark }) {
     }
   };
 
-  //Mode
-  let [mode, setMode] = useState(true);
+  //우측 모달
+  let [modal, setModal] = useState(false);
 
   return (
     <main className="chatting-wrap">
       <div className="chat-header">
         <div className="header-inner">
-          <button className="back" type="button">
+          <button
+            className="back"
+            type="button"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
             <span className="screen-out">뒤로가기</span>
             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
               <g id="Layer_2">
@@ -64,7 +73,13 @@ export default function Chatting({ light, dark }) {
           </button>
           <p className="name">닉네임</p>
           <div className="more">
-            <button className="more-btn" type="button">
+            <button
+              className="more-btn"
+              type="button"
+              onClick={() => {
+                setModal(true);
+              }}
+            >
               {/* 클릭시 우측에서 왼쪽으로 나오기 (나가기, 테마설정, 즐겨찾기) */}
               <span className="screen-out">더보기 버튼</span>
               <svg
@@ -80,7 +95,7 @@ export default function Chatting({ light, dark }) {
           </div>
         </div>
       </div>
-      <section className="chat-info">
+      <section className={`chat-info ${modal ? "not-scroll" : ""}`}>
         <ul>
           {/* 받은 메세지 */}
           <li>
@@ -105,33 +120,6 @@ export default function Chatting({ light, dark }) {
               <span>2022.11.12</span>
             </div>
           </li>
-          {[1, 2, 3, 4, 5, 7, 8, 9, 10].map(() => {
-            return (
-              <>
-                <li>
-                  <div className="msg-received msg">
-                    <div className="user-img">
-                      <span className="screen-out">닉네임의 프로필</span>
-                      <span className="img"></span>
-                    </div>
-                    <div className="msg-txt">안녕하세요!?</div>
-                    <div className="empty"></div>
-                  </div>
-                  <div className="date receoved-date">
-                    <span>2022.11.12</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="sent-received msg">
-                    <div className="msg-txt">응 방가</div>
-                  </div>
-                  <div className="date send-date">
-                    <span>2022.11.12</span>
-                  </div>
-                </li>
-              </>
-            );
-          })}
         </ul>
       </section>
       <div className="write-msg">
@@ -163,9 +151,29 @@ export default function Chatting({ light, dark }) {
           </button>
         </div>
       </div>
-      <div className="more-modal">
-        <div className="modal-inner">
-          <h5>채팅방 정보</h5>
+      <div className={`more-modal ${modal ? "modal-open" : ""}`}>
+        <div className={`modal-inner ${modal ? "open" : ""}`}>
+          <div className="modal-top">
+            <h5>채팅방 정보</h5>
+            <button
+              type="button"
+              className="close-btn"
+              onClick={() => {
+                setModal(false);
+              }}
+            >
+              <span className="screen-out">닫기</span>
+              <svg
+                id="Outlined"
+                viewBox="0 0 32 32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="Fill">
+                  <polygon points="28.71 4.71 27.29 3.29 16 14.59 4.71 3.29 3.29 4.71 14.59 16 3.29 27.29 4.71 28.71 16 17.41 27.29 28.71 28.71 27.29 17.41 16 28.71 4.71" />
+                </g>
+              </svg>
+            </button>
+          </div>
           <ul className="msg-info">
             <li>
               <p className="msg-info-title">채팅 상대</p>
@@ -196,7 +204,13 @@ export default function Chatting({ light, dark }) {
             </li>
           </ul>
           <div className="btn-wrap">
-            <button type="button" className="back">
+            <button
+              type="button"
+              className="back"
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
               <span className="screen-out">뒤로가기</span>
               <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                 <g id="Layer_2">
@@ -215,139 +229,6 @@ export default function Chatting({ light, dark }) {
                   <path d="M29.895,12.52c-0.235-0.704-0.829-1.209-1.549-1.319l-7.309-1.095l-3.29-6.984C17.42,2.43,16.751,2,16,2  s-1.42,0.43-1.747,1.122l-3.242,6.959l-7.357,1.12c-0.72,0.11-1.313,0.615-1.549,1.319c-0.241,0.723-0.063,1.507,0.465,2.046  l5.321,5.446l-1.257,7.676c-0.125,0.767,0.185,1.518,0.811,1.959c0.602,0.427,1.376,0.469,2.02,0.114l6.489-3.624l6.581,3.624  c0.646,0.355,1.418,0.311,2.02-0.114c0.626-0.441,0.937-1.192,0.811-1.959l-1.259-7.686l5.323-5.436  C29.958,14.027,30.136,13.243,29.895,12.52z" />
                 </svg>
               </button>
-              {mode ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMode(false);
-                    dark();
-                  }}
-                >
-                  <span className="screen-out">다크모드</span>
-                  <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                    <rect fill="none" height="256" width="256" />
-                    <path
-                      d="M216.7,152.6A91.9,91.9,0,0,1,103.4,39.3h0A92,92,0,1,0,216.7,152.6Z"
-                      fill="none"
-                      className="stroke-svg"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="15"
-                    />
-                  </svg>
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMode(true);
-                    light();
-                  }}
-                >
-                  <span className="screen-out">라이트모드</span>
-                  <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                    <rect fill="none" height="256" width="256" />
-                    <circle
-                      className="stroke-svg"
-                      cx="128"
-                      cy="128"
-                      fill="none"
-                      r="60"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="16"
-                    />
-                    <line
-                      className="stroke-svg"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="16"
-                      x1="128"
-                      x2="128"
-                      y1="36"
-                      y2="16"
-                    />
-                    <line
-                      className="stroke-svg"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="16"
-                      x1="62.9"
-                      x2="48.8"
-                      y1="62.9"
-                      y2="48.8"
-                    />
-                    <line
-                      className="stroke-svg"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="16"
-                      x1="36"
-                      x2="16"
-                      y1="128"
-                      y2="128"
-                    />
-                    <line
-                      className="stroke-svg"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="16"
-                      x1="62.9"
-                      x2="48.8"
-                      y1="193.1"
-                      y2="207.2"
-                    />
-                    <line
-                      className="stroke-svg"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="16"
-                      x1="128"
-                      x2="128"
-                      y1="220"
-                      y2="240"
-                    />
-                    <line
-                      className="stroke-svg"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="16"
-                      x1="193.1"
-                      x2="207.2"
-                      y1="193.1"
-                      y2="207.2"
-                    />
-                    <line
-                      className="stroke-svg"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="16"
-                      x1="220"
-                      x2="240"
-                      y1="128"
-                      y2="128"
-                    />
-                    <line
-                      className="stroke-svg"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="16"
-                      x1="193.1"
-                      x2="207.2"
-                      y1="62.9"
-                      y2="48.8"
-                    />
-                  </svg>
-                </button>
-              )}
             </div>
           </div>
         </div>

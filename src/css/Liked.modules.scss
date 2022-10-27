@@ -1,0 +1,38 @@
+@import "./../util";
+
+.attention-list-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  .title {
+    @include wrap;
+  }
+
+  .al-container {
+    flex: 1;
+    padding: 40px 0;
+
+    .container-inner {
+      @include list-content;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .al-container {
+      .container-inner {
+        .attention-content {
+          width: calc((100% - 30px) / 2);
+
+          &:nth-child(2n) {
+            margin-right: 0;
+          }
+
+          &:nth-child(3n) {
+            margin-right: 30px;
+          }
+        }
+      }
+    }
+  }
+}

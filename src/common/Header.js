@@ -2,7 +2,7 @@ import "./../css/Header.modules.scss";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-export default function Header({ light, dark }) {
+export default function Header({ light, dark, openSearch }) {
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
   });
@@ -72,7 +72,13 @@ export default function Header({ light, dark }) {
             </ul>
           </nav>
           <div className="util">
-            <button type="button" className="search-btn">
+            <button
+              type="button"
+              className="search-btn"
+              onClick={() => {
+                openSearch();
+              }}
+            >
               <svg
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"

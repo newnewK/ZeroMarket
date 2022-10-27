@@ -1,0 +1,187 @@
+@import "./../util";
+
+.search-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100vw;
+  height: 0;
+  overflow: hidden;
+  transition: ease 0.34s;
+
+  &.search-layout {
+    min-height: 100vh;
+  }
+
+  &::before {
+    content: "";
+    opacity: 0.9;
+    background-color: var(--primary-color);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .search-inner {
+    background-color: var(--primary-color);
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.6s;
+
+    &.inner-layout {
+      opacity: 1;
+    }
+
+    .search-header {
+      @include wrap;
+      @include flex($just: space-between);
+      height: 72px;
+
+      .logo {
+        a {
+          display: block;
+          svg {
+            height: 25px;
+            fill: var(--font-color);
+          }
+        }
+      }
+
+      .close-search {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        background-color: transparent;
+        svg {
+          fill: var(--font-color);
+          width: 20px;
+        }
+      }
+    }
+
+    .search-info {
+      @include wrap;
+      padding: 40px 0;
+      transform: translateY(-100%);
+      opacity: 0.01;
+      transition: transform 0.6s, opacity 0.4s ease-in 0.4s;
+
+      &.open-search {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .search-form {
+        @include flex($just: flex-start);
+        border-radius: 20px;
+        width: 600px;
+        background-color: var(--colorFg4);
+        padding: 0 20px;
+        margin: 0 auto;
+
+        svg {
+          fill: var(--colorFg3);
+          width: 20px;
+          margin-right: 10px;
+        }
+
+        input {
+          height: 48px;
+          background-color: transparent;
+          border: none;
+          flex: 1;
+          color: var(--colorFg3);
+          font-size: 1.125rem;
+          font-weight: 700;
+
+          &::placeholder {
+            font-weight: 700;
+            color: var(--colorFg3);
+          }
+        }
+      }
+
+      .empty-search {
+        width: 500px;
+        @include flex;
+        flex-wrap: wrap;
+        margin: 30px auto 0;
+
+        button {
+          margin-right: 10px;
+          padding: 0 15px;
+          height: 34px;
+          border-radius: 34px;
+          margin-bottom: 10px;
+          font-weight: 500;
+          color: var(--font-color);
+          background-color: var(--colorFg2);
+        }
+      }
+
+      .result-list-wrap {
+        padding-top: 80px;
+        .result-tit {
+          font-size: 1.75rem;
+          font-family: sans-serif;
+          font-weight: 700;
+          letter-spacing: -1px;
+
+          .result-number {
+            font-family: "Pretendard", sans-serif;
+            background-color: $main-color;
+            color: #fff;
+            padding: 6px 7px;
+            font-size: 0.875rem;
+            display: inline-block;
+            min-width: 26px;
+            border-radius: 20px;
+            box-sizing: border-box;
+            transform: translateY(-8px);
+            margin-left: 8px;
+            letter-spacing: 0;
+          }
+        }
+
+        .list-wrap {
+          @include list-content;
+          margin-top: 40px;
+        }
+      }
+
+      .not-result {
+        padding-top: 80px;
+        .result-tit {
+          font-size: 1.75rem;
+          font-family: sans-serif;
+          font-weight: 700;
+          letter-spacing: -1px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .search-inner {
+      .search-info {
+        .result-list-wrap {
+          .list-wrap {
+            .result-list {
+              width: calc((100% - 30px) / 2);
+
+              &:nth-child(2n) {
+                margin-right: 0;
+              }
+
+              &:nth-child(3n) {
+                margin-right: 30px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
