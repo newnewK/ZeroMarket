@@ -9,6 +9,7 @@
 }
 
 $main-color: #10cfc9;
+$dark-main: #00bbb4;
 //   #0ed5d0
 
 // theme
@@ -38,6 +39,7 @@ $main-color: #10cfc9;
   --colorFg19: #f5f7fa;
   --colorFg20: #e6eaed;
   --colorFg21: #fff;
+  --colorFg22: rgba(0, 0, 0, 0.54);
   // rgba(0, 0, 0, 0.54)
 }
 
@@ -67,6 +69,7 @@ $main-color: #10cfc9;
   --colorFg19: #363636;
   --colorFg20: #1c1c1c;
   --colorFg21: #363636;
+  --colorFg22: rgba(255, 255, 255, 0.75);
   // #f2f4f6
 }
 

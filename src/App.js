@@ -19,6 +19,7 @@ import Mypage from "./components/mypage/Mypage";
 import Sale from "./components/mypage/Sale";
 import Completed from "./components/mypage/Completed";
 import Review from "./components/mypage/Review";
+import ProfileSetting from "./components/mypage/ProfileSetting";
 
 function App() {
   let [theme, setTheme] = useState(true);
@@ -60,11 +61,12 @@ function App() {
           <Route path="pw" element={<FindUserPw />} />
         </Route>
         <Route path="/product/:id" element={<Product />} />
-        <Route path="/mypage" element={<Mypage />}>
+        <Route path="/profile" element={<Mypage />}>
           <Route path="sale" element={<Sale />} />
           <Route path="completed" element={<Completed />} />
           <Route path="review" element={<Review />} />
         </Route>
+        <Route path="/setting" element={<ProfileSetting />} />
         <Route path="/chatlist" element={<ChatList />} />
         <Route path="/chatting" element={<Chatting />} />
         <Route path="/liked" element={<Liked />} />

@@ -183,17 +183,304 @@
         font-family: sans-serif;
       }
 
+      .sub-txt {
+        display: block;
+        margin-top: 10px;
+        color: var(--colorFg22);
+        font-size: 0.832rem;
+      }
+
       .btn-wrap {
-        padding-top: 30px;
+        padding-top: 20px;
 
         button {
           padding: 10px 20px;
           margin-right: 10px;
+          border-radius: 3px;
+          font-weight: 500;
+          font-size: 0.875rem;
+
+          &.write-review {
+            background-color: $dark-main;
+            color: #fff;
+          }
+
+          &.skip-review {
+            background-color: var(--colorFg21);
+            border: 1px solid var(--colorFg2);
+            color: var(--colorFg22);
+          }
         }
       }
     }
   }
 
   .review-list-wrap {
+    .list {
+      li {
+        border-bottom: 1px solid var(--colorFg2);
+
+        &:last-child {
+          border-bottom: none;
+        }
+        .user-info {
+          @include flex($just: flex-start);
+
+          .user-img {
+            width: 30px;
+            .img-inner {
+              padding-top: 100%;
+              border-radius: 50%;
+              background-size: cover;
+              background-repeat: no-repeat;
+            }
+          }
+
+          .name {
+            margin-left: 10px;
+            font-size: 0.937rem;
+            color: var(--font-color);
+            font-weight: 500;
+          }
+        }
+
+        .review-txt {
+          margin: 15px 0;
+          font-size: 0.937rem;
+          color: var(--font-color);
+        }
+      }
+    }
+  }
+}
+
+// 리뷰 작성 모달
+.write-wrap {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.25);
+
+  .write-inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    background-color: var(--primary-color);
+    padding: 40px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--colorFg2);
+    .tit {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .product {
+      @include flex($just: flex-start);
+      margin-top: 20px;
+      .product-img {
+        width: 15%;
+        border-radius: 5px;
+        overflow: hidden;
+
+        .img {
+          padding-top: 100%;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-color: #ddd;
+        }
+      }
+      .product-info {
+        margin-left: 15px;
+        width: calc(85% - 15px);
+        .tit {
+          font-size: 1rem;
+          font-weight: 500;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .category {
+          color: var(--colorFg5);
+          font-size: 0.832rem;
+        }
+      }
+    }
+
+    .write-form {
+      padding: 20px 0 40px;
+
+      textarea {
+        resize: none;
+        width: 100%;
+        height: 150px;
+        border-color: var(--colorFg2);
+        display: block;
+        transition-property: border-color, background-color, color;
+        transition-duration: 0.15s;
+        font-family: NotoSansKR, sans-serif;
+        padding: 10px;
+        font-size: 0.937rem;
+        box-sizing: border-box;
+        background: var(--colorFg8);
+        color: var(--font-color);
+
+        &:focus {
+          border-color: $main-color;
+          outline: none;
+        }
+      }
+    }
+
+    .btn-wrap {
+      button {
+        font-size: 1rem;
+        font-weight: 500;
+        width: calc((100% - 10px) / 2);
+        letter-spacing: 1px;
+      }
+
+      .close-btn {
+        position: absolute;
+        right: 30px;
+        top: 40px;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        svg {
+          width: 20px;
+          fill: var(--font-color);
+        }
+      }
+
+      .submit-btn {
+        margin-left: 10px;
+        padding: 14px 0;
+        color: #fff;
+        background-color: $dark-main;
+        border: 1px solid $dark-main;
+        transition: ease 0.15s;
+
+        &:hover {
+          background-color: darken($dark-main, 0.95);
+        }
+      }
+
+      .cancel-btn {
+        padding: 14px 0;
+        border: 1px solid var(--colorFg2);
+        background: var(--colorFg8);
+        color: var(--font-color);
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .write-inner {
+      width: 100vw;
+      height: 100vh;
+      left: 0;
+      top: 0;
+      transform: translate(0, 0);
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      border: none;
+      .btn-wrap {
+        margin-top: auto;
+      }
+    }
+  }
+}
+
+//거래후기 건너뛰기
+.skipReview-wrap {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.25);
+
+  .skip-inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    background-color: var(--primary-color);
+    padding: 40px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--colorFg2);
+
+    .tit {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .sub-tit {
+      color: var(--colorFg22);
+      font-size: 0.937rem;
+      margin: 20px 0 40px;
+      line-height: 1.4;
+    }
+
+    .btn-wrap {
+      @include flex($just: flex-end);
+      button {
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
+
+      .close-btn {
+        position: absolute;
+        right: 30px;
+        top: 40px;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        svg {
+          width: 20px;
+          fill: var(--font-color);
+        }
+      }
+
+      .submit-btn {
+        margin-left: 10px;
+        padding: 10px 30px;
+        color: #fff;
+        background-color: $dark-main;
+        border: 1px solid $dark-main;
+        transition: ease 0.15s;
+
+        &:hover {
+          background-color: darken($dark-main, 0.95);
+        }
+      }
+
+      .cancel-btn {
+        padding: 10px 30px;
+        border: 1px solid var(--colorFg2);
+        background: var(--colorFg8);
+        color: var(--font-color);
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .skip-inner {
+      width: calc(100% - 40px);
+    }
   }
 }

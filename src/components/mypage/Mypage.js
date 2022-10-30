@@ -43,11 +43,11 @@ export default function Mypage() {
             return (
               <li
                 className={
-                  `/mypage/${mypageTab[i].id}` === current ? "active" : ""
+                  `/profile/${mypageTab[i].id}` === current ? "active" : ""
                 }
                 key={i}
               >
-                <Link to={`/mypage/${mypageTab[i].id}`}>
+                <Link to={`/profile/${mypageTab[i].id}`}>
                   {mypageTab[i].name}
                 </Link>
               </li>
