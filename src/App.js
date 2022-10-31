@@ -20,6 +20,8 @@ import Sale from "./components/mypage/Sale";
 import Completed from "./components/mypage/Completed";
 import Review from "./components/mypage/Review";
 import ProfileSetting from "./components/mypage/ProfileSetting";
+import ZeroSite from "./components/ZeroSite";
+import ZeroDetail from "./components/ZeroDetail";
 
 function App() {
   let [theme, setTheme] = useState(true);
@@ -61,6 +63,8 @@ function App() {
           <Route path="pw" element={<FindUserPw />} />
         </Route>
         <Route path="/product/:id" element={<Product />} />
+        <Route path="/zeroSite" element={<ZeroSite />} />
+        <Route path="/zeroDetail/:id" element={<ZeroDetail />} />
         <Route path="/profile" element={<Mypage />}>
           <Route path="sale" element={<Sale />} />
           <Route path="completed" element={<Completed />} />

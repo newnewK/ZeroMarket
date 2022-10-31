@@ -64,10 +64,10 @@ export default function Header({ light, dark, openSearch }) {
                 <Link to="/">스토어</Link>
               </li>
               <li>
-                <Link to="/guide">이용가이드</Link>
+                <Link to="/chatlist">채팅</Link>
               </li>
               <li>
-                <Link to="/zero-site">제로 사이트</Link>
+                <Link to="/zeroSite">제로 사이트</Link>
               </li>
             </ul>
           </nav>
@@ -338,10 +338,10 @@ export default function Header({ light, dark, openSearch }) {
                   <Link to="/">스토어</Link>
                 </li>
                 <li>
-                  <Link to="/guide">이용가이드</Link>
+                  <Link to="/chatlist">채팅</Link>
                 </li>
                 <li>
-                  <Link to="/zero-site">제로 사이트</Link>
+                  <Link to="/zeroSite">제로 사이트</Link>
                 </li>
               </ul>
             </nav>

@@ -18,6 +18,9 @@ $dark-main: #00bbb4;
   --font-color: #282a31;
   --hover-bg: #edeeed;
   --non-hover: #878888;
+  --icon-bg: #333;
+  --icon-hover: #fff;
+  --back-hover: #333;
   --colorFg1: #666;
   --colorFg2: #edeeed;
   --colorFg3: #fff;
@@ -40,6 +43,7 @@ $dark-main: #00bbb4;
   --colorFg20: #e6eaed;
   --colorFg21: #fff;
   --colorFg22: rgba(0, 0, 0, 0.54);
+  --colorFg23: #f9f9f9;
   // rgba(0, 0, 0, 0.54)
 }
 
@@ -48,6 +52,9 @@ $dark-main: #00bbb4;
   --font-color: #fff;
   --hover-bg: #222224;
   --non-hover: #333;
+  --icon-bg: #fff;
+  --icon-hover: #333;
+  --back-hover: #eee;
   --colorFg1: #999;
   --colorFg2: #222224;
   --colorFg3: #121212;
@@ -70,6 +77,7 @@ $dark-main: #00bbb4;
   --colorFg20: #1c1c1c;
   --colorFg21: #363636;
   --colorFg22: rgba(255, 255, 255, 0.75);
+  --colorFg23: #000;
   // #f2f4f6
 }
 
@@ -111,6 +119,11 @@ input {
     outline: none;
   }
 }
+textarea {
+  &:focus {
+    outline: none;
+  }
+}
 
 //common Wrap
 @mixin wrap {
@@ -129,6 +142,16 @@ input {
     max-width: calc(100vw - 80px);
     min-width: calc(100vw - 80px);
   }
+  @media screen and (max-width: 767px) {
+    max-width: calc(100vw - 40px);
+    min-width: calc(100vw - 40px);
+  }
+}
+@mixin detail-wrap {
+  max-width: 630px;
+  min-width: 630px;
+  margin: 0 auto;
+
   @media screen and (max-width: 767px) {
     max-width: calc(100vw - 40px);
     min-width: calc(100vw - 40px);
@@ -219,7 +242,7 @@ input {
   }
 
   &:focus {
-    border-color: var(--colorFg10);
+    border-color: $main-color;
   }
 
   &::placeholder {
@@ -364,5 +387,81 @@ input {
       padding: 0 20px 30px;
       @include product-info;
     }
+  }
+}
+
+@keyframes hoverLine {
+  0% {
+    -webkit-transform: scaleX(1);
+    -moz-transform: scaleX(1);
+    -o-transform: scaleX(1);
+    transform: scaleX(1);
+    -webkit-transform-origin: right center;
+    -moz-transform-origin: right center;
+    -o-transform-origin: right center;
+    transform-origin: right center;
+  }
+  40% {
+    -webkit-transform: scaleX(0);
+    -moz-transform: scaleX(0);
+    -o-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: right center;
+    -moz-transform-origin: right center;
+    -o-transform-origin: right center;
+    transform-origin: right center;
+  }
+  40.0001% {
+    -webkit-transform: scaleX(0);
+    -moz-transform: scaleX(0);
+    -o-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: left center;
+    -moz-transform-origin: left center;
+    -o-transform-origin: left center;
+    transform-origin: left center;
+  }
+  100% {
+    -webkit-transform: scaleX(1);
+    -moz-transform: scaleX(1);
+    -o-transform: scaleX(1);
+    transform: scaleX(1);
+    -webkit-transform-origin: left center;
+    -moz-transform-origin: left center;
+    -o-transform-origin: left center;
+    transform-origin: left center;
+  }
+}
+
+@mixin hoverEffectLine {
+  position: relative;
+  display: inline-block;
+  height: auto;
+  transform: scaleX(1);
+  transform-origin: left center;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 1px;
+    background: var(--font-color);
+    width: 100%;
+  }
+
+  &:hover {
+    opacity: 0.8;
+
+    &::before {
+      animation: hoverLine 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+  }
+
+  span {
+    font-size: 0.937rem;
+    font-weight: 400;
+    color: var(--font-color);
   }
 }

@@ -50,6 +50,7 @@ export default function FindUserId() {
               value={bizN}
               onChange={changeBizN}
             />
+            <input type="text" placeholder="이름" />
             <button
               type="button"
               name="id-submit"

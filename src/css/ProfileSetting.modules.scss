@@ -1,1 +1,136 @@
 @import "./../util";
+
+.profile-setting-wrap {
+  background-color: var(--colorFg23);
+
+  .setting-inner {
+    width: 400px;
+    margin: 50px auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+
+    .sub-tit {
+      font-size: 0.875rem;
+      margin: 0;
+      color: var(--colorFg1);
+    }
+
+    .title {
+      margin: 0;
+      padding: 5px 0 20px;
+      font-size: 30px;
+      font-weight: 700;
+    }
+
+    .user-img {
+      .img-file {
+        @include flex;
+        input {
+          display: none;
+        }
+        .upload-img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          overflow: hidden;
+          cursor: pointer;
+          .img {
+            background-color: #ddd;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: inherit;
+            height: inherit;
+          }
+        }
+      }
+
+      .img-btn {
+        @include flex;
+        margin-top: 15px;
+
+        button {
+          background: transparent;
+          padding: 5px 10px;
+          font-size: 0.832rem;
+          text-decoration: underline;
+          color: var(--colorFg1);
+        }
+      }
+    }
+
+    .user-info-form {
+      display: block;
+      margin-top: 20px;
+
+      .field {
+        margin-bottom: 20px;
+        label {
+          display: block;
+          font-size: 0.937rem;
+          padding-bottom: 5px;
+          color: var(--font-color);
+        }
+        input {
+          @include form_input;
+        }
+        textarea {
+          resize: none;
+          width: 100%;
+          min-height: 100px;
+          border: 1px solid var(--colorFg9);
+          padding: 10px;
+          box-sizing: border-box;
+          font-size: 1rem;
+          transition: 0.25s ease;
+          height: 48px;
+          width: 100%;
+          font-weight: 300;
+          font-family: "Roboto", sans-serif;
+          background-color: var(--colorFg8);
+          color: var(--font-color);
+          &:hover {
+            border-color: var(--colorFg10);
+          }
+
+          &:focus {
+            border-color: $main-color;
+          }
+
+          &::placeholder {
+            color: var(--font-color);
+            font-weight: 300;
+          }
+        }
+      }
+    }
+
+    .btn-wrap {
+      @include flex;
+      button {
+        width: calc((100% - 10px) / 2);
+        padding: 10px 0;
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
+      .cancel-btn {
+        margin-right: 10px;
+        background-color: var(--colorFg21);
+        border: 1px solid var(--colorFg2);
+        color: var(--colorFg22);
+      }
+      .submit-btn {
+        border: 1px solid $main-color;
+        background-color: $main-color;
+        color: #fff;
+      }
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .setting-inner {
+      width: 100%;
+    }
+  }
+}

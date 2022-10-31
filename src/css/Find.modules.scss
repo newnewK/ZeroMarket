@@ -2,25 +2,13 @@
 
 // find 컴포넌트
 .find-wrap {
-  height: calc(100vh - 57px);
-  display: flex;
-  flex-direction: column;
-
-  position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 154px;
-    width: 100vw;
-    height: 1px;
-    background-color: var(--colorFg2);
+  .find-inner {
+    width: 400px;
+    margin: 50px auto;
+    padding: 0 40px;
+    box-sizing: border-box;
   }
-
   .top-wrap {
-    @include wrap;
-
     .find-title {
       font-size: 1.875rem;
       padding: 50px 0 20px;
@@ -30,15 +18,19 @@
       @include flex($just: flex-start);
       padding-left: 0;
       margin: 0;
+      width: 100%;
+      border-bottom: 1px solid var(--colorFg2);
 
       li {
-        margin-right: 20px;
         cursor: pointer;
         padding: 15px 0;
+        width: 50%;
 
         a {
           color: var(--colorFg13);
           font-size: 0.937rem;
+          text-align: center;
+          display: block;
         }
 
         &.active {
@@ -63,15 +55,13 @@
   }
 
   .find-user-warp {
-    background-color: var(--colorFg14);
-    flex: 1;
   }
 }
 
 // find Tab
 .user-find {
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 40px 0;
   max-width: 400px;
   width: 100%;
   box-sizing: border-box;
