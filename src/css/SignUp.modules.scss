@@ -1,5 +1,27 @@
 @import "./../util";
 
+// 아이디 중복 확인 버튼 클릭시 Ani
+@keyframes overlapAni {
+  0% {
+    top: -70px;
+  }
+  20% {
+    top: 20px;
+    opacity: 1;
+  }
+  80% {
+    top: 20px;
+    opacity: 1;
+  }
+  95% {
+    opacity: 0.5;
+  }
+  100% {
+    top: -70px;
+    opacity: 0;
+  }
+}
+
 .sign-up-warp {
   .sign-up-inner {
     width: 400px;
@@ -49,6 +71,12 @@
 
         &.wngField {
           @include wngField;
+
+          .wngPw {
+            .pwWng {
+              display: none;
+            }
+          }
         }
 
         &.wngPw {
@@ -83,6 +111,11 @@
         .input-contanier {
           @include flex($just: flex-start);
 
+          .id-fixed {
+            background-color: var(--id-fixed-bg);
+            border-color: var(--id-fixed-border);
+          }
+
           button {
             min-width: 103px;
             height: 48px;
@@ -90,12 +123,30 @@
             border-radius: 3px;
             opacity: 0.45;
             background: $main-color;
+            border: 1px solid $main-color;
             color: #fff;
             cursor: default;
             transition: 0.25s ease;
+            font-weight: 600;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
 
             &.onBtn {
               opacity: 1;
+              cursor: pointer;
+            }
+
+            &.changeId {
+              background-color: var(--colorFg8);
+              color: var(--id-change-color);
+              border-color: var(--id-change-border);
+              opacity: 1;
+              cursor: pointer;
+              transition: ease 0.35s;
+
+              &:hover {
+                background-color: var(--id-change-hover);
+              }
             }
           }
         }
@@ -197,6 +248,35 @@
         display: inline-block;
         margin-left: 3px;
       }
+    }
+  }
+
+  // 중복 체크
+  .overlap-id-modal {
+    position: absolute;
+    left: 50%;
+    top: -70px;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    width: 330px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    padding: 20px;
+    background-color: #fff;
+    transition: 0.25s ease;
+
+    &.not-overlap-id {
+      background-color: #222529;
+      border: 1px solid #ddd;
+      color: #fff;
+      animation: overlapAni 2.2s;
+    }
+
+    &.overlap-id {
+      border: 1px solid #fd7475;
+      color: var(--overlap-color);
+      background-color: var(--overlap-bg);
+      animation: overlapAni 2.2s;
     }
   }
 

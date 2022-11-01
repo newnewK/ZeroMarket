@@ -21,6 +21,13 @@ $dark-main: #00bbb4;
   --icon-bg: #333;
   --icon-hover: #fff;
   --back-hover: #333;
+  --overlap-bg: #fbd9d8;
+  --overlap-color: #fd5c5c;
+  --id-fixed-bg: #f9fafb;
+  --id-fixed-border: #f2f4f6;
+  --id-change-border: #cdd3d8;
+  --id-change-color: #495057;
+  --id-change-hover: #e9ecef;
   --colorFg1: #666;
   --colorFg2: #edeeed;
   --colorFg3: #fff;
@@ -44,6 +51,7 @@ $dark-main: #00bbb4;
   --colorFg21: #fff;
   --colorFg22: rgba(0, 0, 0, 0.54);
   --colorFg23: #f9f9f9;
+
   // rgba(0, 0, 0, 0.54)
 }
 
@@ -55,6 +63,13 @@ $dark-main: #00bbb4;
   --icon-bg: #fff;
   --icon-hover: #333;
   --back-hover: #eee;
+  --overlap-bg: #cf4545;
+  --overlap-color: #fff;
+  --id-fixed-bg: #1e272f;
+  --id-fixed-border: #1e272f;
+  --id-change-border: #5c5f62;
+  --id-change-color: #d8dadc;
+  --id-change-hover: transparent;
   --colorFg1: #999;
   --colorFg2: #222224;
   --colorFg3: #121212;
@@ -78,6 +93,7 @@ $dark-main: #00bbb4;
   --colorFg21: #363636;
   --colorFg22: rgba(255, 255, 255, 0.75);
   --colorFg23: #000;
+
   // #f2f4f6
 }
 
@@ -232,7 +248,7 @@ textarea {
   transition: 0.25s ease;
   height: 48px;
   width: 100%;
-  font-weight: 300;
+  font-weight: 400;
   font-family: "Roboto", sans-serif;
   background-color: var(--colorFg8);
   color: var(--font-color);
@@ -253,6 +269,7 @@ textarea {
 @mixin wngField {
   input {
     border-color: var(--colorFg7);
+    background: rgba(255, 155, 155, 0.06);
   }
 
   em {
@@ -261,6 +278,7 @@ textarea {
     margin-top: 5px;
     display: block;
     color: var(--colorFg7);
+    word-break: keep-all;
   }
 }
 

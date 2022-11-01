@@ -5,58 +5,66 @@ import "./../../css/Find.modules.scss";
 function FindUserPw() {
   let [comfirm, setComfirm] = useState(false);
 
-  // 아이디, 비밀번호 한글 방지!
-  let dataRuleCheckFor = (ch) => {
-    let ascii = ch.charCodeAt(0);
-    if (48 /* 0 */ <= ascii && ascii <= 57 /* 9 */) return true;
-    if (65 /* A */ <= ascii && ascii <= 90 /* Z */) return true;
-    if (97 /* a */ <= ascii && ascii <= 122 /* z */) return true;
-
-    return false;
-  };
-
-  // 아이디
+  // 아이디 - (초기값, 경고, input value)
   let [userId, setUserId] = useState("");
+  let [idWng, setIdWng] = useState(false);
+  let changeUserId = (e) => {
+    let currentId = e.target.value;
 
-  // 사업자 등록번호
-  let [bizN, setBizN] = useState("");
-
-  let changeBizN = (e) => {
-    let targetN = e.target.value;
-    targetN = targetN.replace(/[^0-9]/g, "");
-
-    setBizN(targetN);
+    currentId = currentId.replace(/[^A-Za-z0-9]/gi, "");
+    setUserId(currentId);
+    if (userId !== "") {
+      setIdWng(false);
+    }
   };
 
-  // 비밀번호 찾기 버튼
+  // 핸드폰번호 - (초기값, 경고, input value)
+  let [cellN, setCellN] = useState("");
+  let [cellWng, setCellWng] = useState(false);
+  let changeCellN = (e) => {
+    let targetN = e.target.value
+      .replace(/[^0-9.]/g, "")
+      .replace(/(\..*)\./g, "$1");
+
+    setCellN(targetN);
+
+    if (cellN !== "") {
+      setCellWng(false);
+    }
+  };
+
+  // 확인 버튼 - 1. 아이디가 비워져있을 때 2. 비밀번호가 비워져있을 때 3.아이디와 비밀번호가 비워져있을 때 4. 아이디가 틀린경우 5. 핸드폰번호가 틀린 경우
   let comfirmId = () => {
-    // 아이디 확인, 사업자등록증 확인 후 true
-    // 아이디나 사업자등록증이 다르거나 틀리면 => wng 메시지 띄우기!!(만들어야함!)
-    setComfirm(true);
+    if (userId === "") {
+      setIdWng(true);
+      setCellWng(true);
+    } else if (cellN === "" || cellN < 11) {
+      setIdWng(true);
+      setCellWng(true);
+      if (userId !== "") {
+        setIdWng(false);
+      }
+    } else {
+      setComfirm(true);
+    }
   };
 
-  // 비밀번호
-  let [userPw, setUserPw] = useState(""); // input value
-  let [viewUserpw, setViewUserpw] = useState(false); // input type
+  // 비밀번호(1) - (초기값, 상태 저장, 경고, 비밀번호 보기, 비밀번호 svg, input Value, blur, 아이콘 클릭시 input 값 보이기)
+  let [userPw, setUserPw] = useState("");
+  let [wngUserPw, setWngUserPw] = useState(false);
+  let [viewUserpw, setViewUserpw] = useState(false);
   let [pwIcon, setPwIcon] = useState(
     "M23.589 7.895l.411.001c10.56 0 20.16 6.504 23.34 15.78l.132.432-.144.396c-3.216 9.168-12.816 15.6-23.328 15.6A24.84 24.84 0 0 1 .684 24.492l-.168-.432.156-.42A24.804 24.804 0 0 1 24 7.896zM24 14.46a9.6 9.6 0 1 0 0 19.2 9.6 9.6 0 0 0 0-19.2zm0 4.14a5.4 5.4 0 1 1 0 10.8 5.4 5.4 0 0 1 0-10.8z"
-  ); // svg
-  let [wngUserPw, setWngUserPw] = useState(false); // 비밀번호 경고
+  );
 
   let changeUserPW = (e) => {
-    let value = e.target.value;
+    let currentPw = e.target.value;
+    currentPw = currentPw.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, "");
+    setUserPw(currentPw);
 
-    if (value === "") {
-      setUserPw(value);
-      return;
+    if (userPw !== "") {
+      setWngUserPw(false);
     }
-
-    let length = value.length;
-    if (dataRuleCheckFor(value[length - 1]) === false) return;
-
-    setUserPw(value);
-
-    return;
   };
 
   let BlurUserPw = () => {
@@ -67,7 +75,6 @@ function FindUserPw() {
     }
   };
 
-  // 비밀번호 눈 아이콘 클릭
   let showUserPw = () => {
     if (viewUserpw === false) {
       setViewUserpw(true);
@@ -82,14 +89,27 @@ function FindUserPw() {
     }
   };
 
-  // 비밀번호 확인
-  let [matchPw, setMatchPw] = useState(""); //value
-  let [viewMP, setViewMP] = useState(false); // input type
+  // 비밀번호(2) 확인 - (초기값, 상태 저장, 경고, 비밀번호(1,2) 상태 동일, svg, input value, blur, 비밀번호 값 보기 )
+  let [matchPw, setMatchPw] = useState("");
+  let [viewMP, setViewMP] = useState(false);
+  let [wngPw, setWngPw] = useState(false);
   let [mpIcon, setMpIcon] = useState(
     "M23.589 7.895l.411.001c10.56 0 20.16 6.504 23.34 15.78l.132.432-.144.396c-3.216 9.168-12.816 15.6-23.328 15.6A24.84 24.84 0 0 1 .684 24.492l-.168-.432.156-.42A24.804 24.804 0 0 1 24 7.896zM24 14.46a9.6 9.6 0 1 0 0 19.2 9.6 9.6 0 0 0 0-19.2zm0 4.14a5.4 5.4 0 1 1 0 10.8 5.4 5.4 0 0 1 0-10.8z"
   );
-  let [wngPw, setWngPw] = useState(false); // wng pw
 
+  let changeMacthPw = (e) => {
+    let currentPw = e.target.value;
+    currentPw = currentPw.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, "");
+    setMatchPw(currentPw);
+  };
+
+  let pwBlur = () => {
+    if (userPw !== matchPw) {
+      setWngPw(true);
+    } else {
+      setWngPw(false);
+    }
+  };
   let showMatchPw = () => {
     if (viewMP === false) {
       setViewMP(true);
@@ -103,39 +123,21 @@ function FindUserPw() {
       );
     }
   };
-  let changeMacthPw = (e) => {
-    let value = e.target.value;
-
-    if (value === "") {
-      setMatchPw(value);
-      return;
-    }
-
-    let length = value.length;
-    if (dataRuleCheckFor(value[length - 1]) === false) return;
-
-    setMatchPw(value);
-
-    return;
-  };
-
-  let pwBlur = () => {
-    if (userPw !== matchPw) {
-      setWngPw(true);
-    } else {
-      setWngPw(false);
-    }
-  };
 
   //비밀번호 재설정 완료 모달
   let [modal, setModal] = useState(false);
 
   let completion = () => {
     if (userPw === matchPw) {
-      // 비밀번호와 비밀번호 확인이 동일한 경우
-      setModal(true);
+      if (userPw.length < 8 || userPw.length > 15) {
+        setModal(false);
+      } else {
+        setModal(true);
+        // 여기서 비밀번호가 DB에 저장되어야함.
+      }
     } else {
       setModal(false);
+      setWngPw(true);
     }
   };
 
@@ -144,27 +146,35 @@ function FindUserPw() {
       {comfirm !== true ? (
         <>
           <p className="find-user-txt">
-            가입하셨던 아이디와 사업자등록번호를 입력하시면,
+            가입하셨던 아이디와 핸드폰 번호를 입력하시면,
             <br />
             새로운 비밀번호로 변경할 수 있습니다.
           </p>
           <form className="user-form">
-            <input
-              type="id"
-              placeholder="아이디"
-              vlaue={userId}
-              onChange={(e) => {
-                setUserId(e.target.value);
-              }}
-            />
-            <input
-              type="text"
-              name="onlyNumber"
-              maxLength="12"
-              placeholder="사업자등록번호"
-              value={bizN}
-              onChange={changeBizN}
-            />
+            <div className={`field ${idWng ? "wngField" : ""}`}>
+              <input
+                type="id"
+                name="userId"
+                placeholder="아이디"
+                value={userId}
+                onChange={changeUserId}
+              />
+            </div>
+            <div className={`field ${cellWng ? "wngField" : ""}`}>
+              <input
+                type="text"
+                name="onlyNumber"
+                maxLength="11"
+                placeholder="핸드폰번호"
+                value={cellN}
+                onChange={changeCellN}
+              />
+              <em>
+                제로마켓에 등록되지 않은 회원정보이거나, 아이디 또는 번호가
+                회원정보와 일치하지 않습니다.
+              </em>
+            </div>
+
             <button
               type="button"
               name="id-submit"
@@ -182,9 +192,9 @@ function FindUserPw() {
             로그인 후 제로마켓을 이용하세요!
           </p>
           <form className="user-form">
-            <div className={`field ${wngPw === true ? "wngField" : null}`}>
+            <div className={`field ${wngPw === true ? "wngField" : ""}`}>
               <label>비밀번호 재설정</label>
-              <div className={`field ${wngUserPw === true ? "wngPw" : null}`}>
+              <div className={`field ${wngUserPw === true ? "wngPw" : ""}`}>
                 <input
                   autoComplete="on"
                   type={viewUserpw === true ? "text" : "password"}
@@ -229,7 +239,10 @@ function FindUserPw() {
                     <path d={mpIcon} />
                   </svg>
                 </button>
-                <em>비밀번호 일치하지않습니다.</em>
+                <em>
+                  비밀번호 일치하지않거나, 비밀번호가 8자 이상 15자 이하인지
+                  확인해주세요
+                </em>
               </div>
             </div>
             <button

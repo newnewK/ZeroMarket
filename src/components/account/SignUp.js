@@ -4,65 +4,62 @@ import "./../../css/SignUp.modules.scss";
 import { useSelector } from "react-redux";
 
 export default function SignUp() {
-  // 아이디, 비밀번호 한글 방지!
-  let dataRuleCheckFor = (ch) => {
-    let ascii = ch.charCodeAt(0);
-    if (48 /* 0 */ <= ascii && ascii <= 57 /* 9 */) return true;
-    if (65 /* A */ <= ascii && ascii <= 90 /* Z */) return true;
-    if (97 /* a */ <= ascii && ascii <= 122 /* z */) return true;
-
-    return false;
-  };
-
-  // 아이디
+  // 아이디 - 초기값, 경고, 중복 버튼 상태, 중복 여부 상태, value change, 블러, 중복 확인 버튼 클릭
   let [userId, setUserId] = useState("");
   let [idWng, setIdWng] = useState(false);
-  let blurId = () => {
+  let [overlapBtn, setOverlapBtn] = useState(false);
+  let [checkOverlap, setCheckOverlap] = useState(0); // 기존상태는 0, 중복X -> 1, 중복 -> 2
+  let changeUserId = (e) => {
+    let currentId = e.target.value;
+
+    currentId = currentId.replace(/[^A-Za-z0-9]/gi, "");
+    setUserId(currentId);
     if (userId !== "") {
+      setIdWng(false);
+
+      if (userId.length > 5 && userId.length < 20) {
+        setOverlapBtn(true);
+      } else {
+        setOverlapBtn(false);
+      }
+    }
+
+    setCheckOverlap(0);
+  };
+
+  console.log("체인지", checkOverlap);
+
+  let blurId = () => {
+    if (userId === "" || userId.length < 5 || userId.length > 20) {
+      setIdWng(true);
+    } else {
       setUserId(userId.replace(/(\s*)/g, ""));
       setIdWng(false);
-    } else {
-      setIdWng(true);
     }
   };
-  let changeUserId = (e) => {
-    let value = e.target.value;
 
-    if (value === "") {
-      setUserId(value);
-      return;
-    }
-
-    let length = value.length;
-    if (dataRuleCheckFor(value[length - 1]) === false) return;
-
-    setUserId(value);
-
-    return;
+  let checkIdOverlap = () => {
+    // 중복이 아닐경우 1
+    setCheckOverlap(2);
+    // 중복일 경우 2
   };
 
-  // 비밀번호
-  let [userPw, setUserPw] = useState(""); // input value
-  let [viewUserpw, setViewUserpw] = useState(false); // input type
+  // 비밀번호 - 초기값, 경고, 비밀번호 값 보기, 보기 아이콘, 값 변경, blur
+  let [userPw, setUserPw] = useState("");
+  let [wngUserPw, setWngUserPw] = useState(false);
+  let [viewUserpw, setViewUserpw] = useState(false);
   let [pwIcon, setPwIcon] = useState(
     "M23.589 7.895l.411.001c10.56 0 20.16 6.504 23.34 15.78l.132.432-.144.396c-3.216 9.168-12.816 15.6-23.328 15.6A24.84 24.84 0 0 1 .684 24.492l-.168-.432.156-.42A24.804 24.804 0 0 1 24 7.896zM24 14.46a9.6 9.6 0 1 0 0 19.2 9.6 9.6 0 0 0 0-19.2zm0 4.14a5.4 5.4 0 1 1 0 10.8 5.4 5.4 0 0 1 0-10.8z"
-  ); // svg
-  let [wngUserPw, setWngUserPw] = useState(false); // 비밀번호 경고
+  );
 
   let changeUserPW = (e) => {
-    let value = e.target.value;
+    let currentPw = e.target.value;
+    currentPw = currentPw.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, "");
+    setUserPw(currentPw);
 
-    if (value === "") {
-      setUserPw(value);
-      return;
+    if (userPw !== "") {
+      setWngUserPw(false);
     }
-
-    let length = value.length;
-    if (dataRuleCheckFor(value[length - 1]) === false) return;
-
-    setUserPw(value);
-
-    return;
   };
 
   let BlurUserPw = () => {
@@ -110,19 +107,13 @@ export default function SignUp() {
     }
   };
   let changeMacthPw = (e) => {
-    let value = e.target.value;
+    let currentPw = e.target.value;
+    currentPw = currentPw.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, "");
+    setMatchPw(currentPw);
 
-    if (value === "") {
-      setMatchPw(value);
-      return;
+    if (matchPw !== "") {
+      setWngPw(false);
     }
-
-    let length = value.length;
-    if (dataRuleCheckFor(value[length - 1]) === false) return;
-
-    setMatchPw(value);
-
-    return;
   };
 
   let pwBlur = () => {
@@ -133,25 +124,51 @@ export default function SignUp() {
     }
   };
 
-  // 핸드폰
-  // let [cellN, setCellN] = useState("");
-  // let [cellBtn, setCellBtn] = useState(false);
+  // 이름 - 초기값, 경고, value change, 블러
+  let [userName, setUserName] = useState("");
+  let [nameWng, setNameWng] = useState(false);
+  let ChangeName = (e) => {
+    let current = e.target.value;
+    let regExp = /[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+    current = current.replace(regExp, "");
 
-  // let changeCellN = (e) => {
-  //   let targetN = e.target.value
-  //     .replace(/[^0-9.]/g, "")
-  //     .replace(/(\..*)\./g, "$1");
+    setUserName(current);
+    if (userName !== "") {
+      setNameWng(false);
+    }
+  };
+  console.log("이름", userName.length);
 
-  //   setCellN(targetN);
+  let blurName = () => {
+    if (userName === "" || userName.length <= 1) {
+      setNameWng(true);
+    } else {
+      setNameWng(false);
+    }
+  };
 
-  //   console.log(cellN.length);
+  // 핸드폰 - 초기값, 경고, 변경, blur
+  let [cellN, setCellN] = useState("");
+  let [cellWng, setCellWng] = useState(false);
 
-  //   if (cellN.length >= 10) {
-  //     setCellBtn(true);
-  //   } else {
-  //     setCellBtn(false);
-  //   }
-  // };
+  let changeCellN = (e) => {
+    let targetN = e.target.value
+      .replace(/[^0-9.]/g, "")
+      .replace(/(\..*)\./g, "$1");
+
+    setCellN(targetN);
+    if (cellN !== "") {
+      setCellWng(false);
+    }
+  };
+
+  let blurCellN = () => {
+    if (cellN === "" || cellN.length < 11) {
+      setCellWng(true);
+    } else {
+      setCellWng(false);
+    }
+  };
 
   // 이용약관 동의
   let termsData = useSelector((state) => {
@@ -180,9 +197,13 @@ export default function SignUp() {
       setCheckTerms([]);
     }
   };
+  console.log("체크", checkTerms);
 
-  // 가입 완료 버튼
+  // 가입 완료 버튼 - 초기값,
   let [submitBtn, setSubmitBtn] = useState(false);
+  let essential = () => {
+    // 이름이 2자 이상 ()
+  };
   // 아이디가 넘어가고, 비밀번호를 다 완료했을 때,
 
   return (
@@ -194,20 +215,49 @@ export default function SignUp() {
         <h2 className="title">간편 가입</h2>
 
         <form className="form-wrap">
-          <div className={`field ${idWng === true ? "wngField" : null}`}>
+          <div
+            className={`field ${idWng || checkOverlap === 2 ? "wngField" : ""}`}
+          >
             <label>아이디</label>
-            <input
-              type="text"
-              placeholder="아이디 입력"
-              value={userId}
-              onChange={changeUserId}
-              onBlur={blurId}
-            />
-            <em>아이디를 입력해 주세요</em>
+            <div className="input-contanier">
+              <input
+                type="text"
+                placeholder="아이디 입력"
+                value={userId}
+                onChange={changeUserId}
+                onBlur={blurId}
+                className={`${checkOverlap === 1 ? "id-fixed" : ""}`}
+              />
+              {checkOverlap === 1 ? (
+                <button
+                  type="button"
+                  className="changeId"
+                  onClick={() => {
+                    setCheckOverlap(0);
+                  }}
+                >
+                  변경하기
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className={`${overlapBtn ? "onBtn" : ""}`}
+                  disabled={overlapBtn ? false : true}
+                  onClick={checkIdOverlap}
+                >
+                  중복확인
+                </button>
+              )}
+            </div>
+            <em>
+              {checkOverlap === 2
+                ? "아이디를 변경하여 중복확인 해주세요"
+                : "5~20자의 영문 대소문자, 숫자만 사용 가능해요"}
+            </em>
           </div>
-          <div className={`field ${wngPw === true ? "wngField" : null}`}>
+          <div className={`field ${wngPw === true ? "wngField" : ""}`}>
             <label>비밀번호</label>
-            <div className={`field ${wngUserPw === true ? "wngPw" : null}`}>
+            <div className={`field ${wngUserPw === true ? "wngPw" : ""}`}>
               <input
                 autoComplete="on"
                 type={viewUserpw === true ? "text" : "password"}
@@ -228,9 +278,9 @@ export default function SignUp() {
                   <path d={pwIcon} />
                 </svg>
               </button>
-              <span className="pwWng">
+              <em className="pwWng">
                 비밀번호는 8자 이상 15자 이하로 입력해주세요.
-              </span>
+              </em>
             </div>
             <div className="field">
               <input
@@ -252,29 +302,34 @@ export default function SignUp() {
                   <path d={mpIcon} />
                 </svg>
               </button>
-              <em>비밀번호 일치하지않습니다.</em>
+              <em>
+                비밀번호 일치하지않거나, 비밀번호가 8자 이상 15자 이하인지
+                확인해주세요
+              </em>
             </div>
           </div>
-          {/* 핸드폰 */}
-          {/* <div className="field">
-            <label>핸드폰</label>
-            <div className="input-contanier">
-              <input
-                type="tel"
-                maxLength={11}
-                placeholder="핸드폰 번호 입력"
-                value={cellN}
-                onChange={changeCellN}
-              />
-              <button
-                type="button"
-                className={cellBtn === true ? "onBtn" : null}
-              >
-                인증하기
-              </button>
-            </div>
-            <em>아이디를 입력해 주세요</em>
-          </div> */}
+          <div className={`field ${nameWng ? "wngField" : ""}`}>
+            <label>이름</label>
+            <input
+              type="text"
+              placeholder="이름 입력"
+              value={userName}
+              onChange={ChangeName}
+              onBlur={blurName}
+            />
+            <em>이름을 작성해주세요</em>
+          </div>
+          <div className={`field ${cellWng ? "wngField" : ""}`}>
+            <label>핸드폰번호</label>
+            <input
+              type="text"
+              placeholder="핸드폰번호 입력"
+              value={cellN}
+              onChange={changeCellN}
+              onBlur={blurCellN}
+            />
+            <em>핸드폰 번호를 입력해주세요</em>
+          </div>
 
           <section className="signUp-checkbox-wrap">
             <label className="all-checkbox">
@@ -342,8 +397,17 @@ export default function SignUp() {
           </button>
         </form>
         <p className="login-page-link">
-          이미 사장님 계정이 있나요? <Link to="/login">로그인</Link>
+          이미 회원이신가요? <Link to="/login">로그인</Link>
         </p>
+      </div>
+      <div
+        className={`overlap-id-modal 
+        ${checkOverlap === 1 ? "not-overlap-id" : ""}   
+        ${checkOverlap === 2 ? "overlap-id" : ""}`}
+      >
+        {/* 중복 "overlap-id" 노중복 "not-overlap-id" */}
+        {checkOverlap === 1 ? "아이디 인증이 완료되었습니다" : ""}
+        {checkOverlap === 2 ? "이미 사용중인 아이디입니다" : ""}
       </div>
     </section>
   );
