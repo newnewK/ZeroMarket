@@ -33,7 +33,7 @@ export default function Login() {
   };
 
   return (
-    <section className="login-wrap">
+    <main className="login-wrap">
       <div className="login-inner">
         <h2>로그인</h2>
         <form>
@@ -91,6 +91,6 @@ export default function Login() {
           <Link to="/signup">회원가입</Link>
         </div>
       </div>
-    </section>
+    </main>
   );
 }

@@ -1,17 +1,28 @@
 @import "./../util";
 
 header {
+  border-bottom: 1px solid var(--colorFg2);
+
+  &.hiddenHeader {
+    display: none;
+  }
   .wrap-header {
     @include flex($just: space-between);
-    height: 72px;
-    margin: 0 auto;
     @include wrap;
+    height: 72px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: var(--primary-color);
+    z-index: 1;
 
     .logo {
       a {
         display: block;
+        height: 100%;
         svg {
-          height: 25px;
+          width: 80px;
           fill: var(--font-color);
         }
       }
@@ -79,11 +90,73 @@ header {
         svg {
           width: 24px;
           height: 24px;
+          fill: var(--font-color);
 
           &.search {
-            fill: var(--font-color);
             width: 22px;
             height: 22px;
+          }
+        }
+
+        &.nav-btn {
+          svg {
+            fill: none;
+          }
+        }
+      }
+
+      .user-wrap {
+        position: relative;
+
+        .user-btn {
+          margin-right: 0;
+        }
+
+        .mypage-wrap {
+          position: absolute;
+          right: 0;
+          bottom: -360px;
+          width: 220px;
+          background-color: var(--primary-color);
+          z-index: 9;
+          border: 1px solid var(--colorFg2);
+          border-radius: 3px;
+          padding: 10px 0;
+          box-sizing: border-box;
+
+          .line {
+            padding: 12px 16px;
+            display: flex;
+            width: 100%;
+            height: 1px;
+            background: transparent;
+            position: relative;
+            box-sizing: border-box;
+
+            &::before {
+              content: "";
+              display: flex;
+              width: 100%;
+              height: 1px;
+              background: var(--colorFg2);
+            }
+          }
+
+          a,
+          button {
+            color: var(--font-color);
+            font-size: 1rem;
+            padding: 10px 15px;
+            display: block;
+            width: 100%;
+            text-align: left;
+            box-sizing: border-box;
+            transition: ease 0.25s;
+
+            &:hover {
+              background-color: var(--colorFg14);
+              border-radius: 0;
+            }
           }
         }
       }
@@ -99,137 +172,204 @@ header {
     z-index: 99999;
     width: 100%;
     height: 100vh;
-    background-color: var(--primary-color);
+    background-color: var(--colorFg14);
     transition: all 0.3s ease-out 0s;
+    display: flex;
+    flex-direction: column;
 
     &.side-on {
       //   transform: translateX(0);
       right: 0;
     }
 
-    .inner-gnb {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      max-width: 412px;
-      height: inherit;
-      padding: 0 24px 36px;
+    .gnb-top {
+      @include flex($just: space-between);
+      border-bottom: 1px solid var(--colorFg2);
+      padding: 0 20px;
       box-sizing: border-box;
-      margin: 0 auto;
+      background-color: var(--primary-color);
 
-      .gnb-logo {
-        padding: 20px 0;
-        a {
-          height: 24px;
+      button {
+        padding: 15px 15px;
+        background-color: transparent;
+
+        svg {
+          height: 22px;
+          fill: var(--font-color);
+        }
+
+        &.home-btn {
+          svg {
+            width: 60px;
+          }
+        }
+      }
+    }
+    .user-container {
+      @include flex($just: flex-start);
+      padding: 20px 40px;
+      background-color: var(--primary-color);
+      .user-profile-img {
+        width: 60px;
+        min-width: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 15px;
+        .img {
+          padding-top: 100%;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+      }
+      .user-login {
+        flex: 1;
+        display: none;
+        button {
+          font-size: 1.125rem;
+          font-weight: 700;
+          color: var(--font-color);
+          width: 100%;
+          padding: 0;
+          line-height: 1.8;
+          text-align: left;
+          background-color: transparent;
+        }
+        p {
+          color: var(--colorFg13);
+          font-size: 0.812rem;
+        }
+      }
+      .user-info {
+        flex: 1;
+        height: 50px;
+        button {
+          @include flex($just: flex-start);
+          width: 100%;
+          font-size: 1.125rem;
+          height: inherit;
+          background-color: transparent;
+
+          .user-name {
+            font-weight: 700;
+          }
 
           svg {
-            height: inherit;
-            fill: var(--font-color);
+            width: 20px;
           }
         }
       }
-
-      nav {
-        height: calc(100vh - 180px);
+    }
+    nav {
+      background-color: var(--primary-color);
+      margin-top: 20px;
+      h5 {
+        padding: 20px 40px 0;
+        color: #868e96;
+        font-weight: 400;
+        font-size: 0.832rem;
+        line-height: 1.5;
       }
       .navigation {
-        padding: 50px 0 60px;
+        margin: 0;
         li {
-          margin-bottom: 35px;
+          padding: 0 30px;
+          border-bottom: 1px solid var(--colorFg25);
+
+          &.log-out-list {
+            border-bottom: none;
+          }
           a {
-            font-size: 2rem;
-            font-weight: 700;
+            @include flex($just: space-between);
+            padding: 14px 10px;
             color: var(--font-color);
-            display: block;
-          }
-        }
-      }
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
 
-      .util {
-        @include flex($just: space-between);
-        margin-top: auto;
-
-        .util-nav {
-          @include flex($just: flex-start);
-
-          li {
-            margin-right: 20px;
-            & > a {
-              color: var(--font-color);
-              font-size: 0.8rem;
-              font-weight: 700;
-              padding: 10px 0;
-              display: block;
-            }
-          }
-
-          .family-site {
-            position: relative;
-            button {
-              @include flex($just: flex-start);
-              font-size: 0.812rem;
-              background-color: transparent;
-              padding: 10px 0;
-              font-weight: 700;
-              color: var(--font-color);
-
-              svg {
-                width: 12px;
-                height: 12px;
-                margin-left: 5px;
-                fill: var(--font-color);
-
-                &.open {
-                  transform: rotate(180deg);
-                }
-              }
-            }
-
-            .site-wrap {
-              position: absolute;
-              left: 0;
-              top: -55px;
-              padding: 15px 0;
-              border-radius: 5px;
-              background-color: var(--hover-bg);
-              width: 100px;
-              a {
-                @include flex;
-                color: var(--colorFg1);
-                padding: 0 15px;
-                font-size: 0.812rem;
-                font-weight: 500;
-                svg {
-                  fill: var(--colorFg1);
-                  width: 15px;
-                  margin-left: 2px;
-                  transform: rotate(45deg);
-                }
-              }
-            }
-          }
-        }
-
-        .theme-btn {
-          button {
-            background-color: transparent;
             svg {
-              width: 24px;
-              height: 24px;
+              width: 18px;
+              fill: var(--colorFg13);
+            }
+          }
+
+          .log-out {
+            width: 100%;
+            padding: 15px 0;
+            margin: 20px 0;
+            font-size: 0.937rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 3px;
+            border: 1px solid var(--colorFg2);
+            background: var(--colorFg8);
+            color: var(--font-color);
+            transition: ease 0.25s;
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.03);
             }
           }
         }
       }
+    }
+    .util {
+      @include flex($just: space-between);
+      background-color: var(--primary-color);
+      margin-top: auto;
+      padding: 20px 40px;
 
-      .close-btn {
-        position: absolute;
-        top: 16px;
-        right: 24px;
-        background-color: transparent;
-        svg {
-          height: 24px;
-          width: 24px;
-          fill: var(--font-color);
+      .family-site {
+        position: relative;
+        button {
+          @include flex($just: flex-start);
+          font-size: 0.812rem;
+          background-color: transparent;
+          padding: 10px 0;
+          font-weight: 700;
+          color: var(--font-color);
+
+          svg {
+            width: 12px;
+            height: 12px;
+            margin-left: 5px;
+            fill: var(--font-color);
+
+            &.open {
+              transform: rotate(180deg);
+            }
+          }
+        }
+
+        .site-wrap {
+          position: absolute;
+          left: 0;
+          top: -45px;
+          padding: 15px 0;
+          border-radius: 5px;
+          background-color: var(--hover-bg);
+          width: 100px;
+          a {
+            @include flex;
+            color: var(--colorFg1);
+            padding: 0 15px;
+            font-size: 0.812rem;
+            font-weight: 500;
+            svg {
+              fill: var(--colorFg1);
+              width: 15px;
+              margin-left: 2px;
+              transform: rotate(45deg);
+            }
+          }
+        }
+      }
+      .theme-btn {
+        button {
+          background-color: transparent;
+          svg {
+            width: 24px;
+            height: 24px;
+          }
         }
       }
     }
@@ -238,6 +378,14 @@ header {
   @media screen and (max-width: 1023px) {
     .wrap-header {
       height: 60px;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .mobile-gnb {
+      .util {
+        margin-top: 20px;
+      }
     }
   }
 }

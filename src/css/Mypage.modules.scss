@@ -8,7 +8,7 @@
       @include flex($just: flex-start);
 
       .user-img {
-        min-width: 150px;
+        min-width: 100px;
         border-radius: 50%;
         overflow: hidden;
 
@@ -50,7 +50,6 @@
       }
     }
     .mobile-setting {
-      display: none;
       width: 100%;
       margin-top: 20px;
       padding: 10px 0;
@@ -111,7 +110,19 @@
 
     .tab-info {
       @include wrap;
-      padding: 40px 0;
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .mypage-tab-container {
+      .tab-info {
+        width: 100vw;
+        padding: 0;
+        margin: 0;
+        min-width: 100vw;
+        max-width: 100vw;
+      }
     }
   }
 }
@@ -132,8 +143,31 @@
   }
 
   @media screen and (max-width: 767px) {
+    padding: 20px 0;
     .list-content {
-      width: calc((100% - 30px) / 2);
+      width: 100%;
+      margin-right: 0;
+      a {
+        @include flex($just: flex-start);
+        @include wrap;
+        padding: 10px;
+
+        .product-img {
+          min-width: 100px;
+          border-radius: 3px;
+          overflow: none;
+          margin: 0;
+
+          .img-inner {
+            padding-top: 100%;
+          }
+        }
+
+        .product-info {
+          padding: 0 0 0 15px;
+          flex: 1;
+        }
+      }
 
       &:nth-child(2n) {
         margin-right: 0;
@@ -149,9 +183,285 @@
 // complated 판매 완료
 .completed-wrap {
   @include list-content;
+  .write-btn {
+    width: 100%;
+    font-size: 0.937rem;
+    padding: 15px 0;
+    background-color: transparent;
+    color: var(--font-color);
+    border-top: 1px solid var(--colorFg6);
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .write-review-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    .write-inner {
+      background-color: var(--primary-color);
+      min-width: 300px;
+      max-width: 500px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+      margin: 100px auto;
+      padding: 30px;
+      position: relative;
+
+      .product-info {
+        @include flex($just: flex-start, $align: flex-start);
+        margin-top: 20px;
+        .product-img {
+          width: 80px;
+          position: relative;
+          border-radius: 3px;
+          overflow: hidden;
+
+          .img {
+            padding-top: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+        }
+
+        .product-txt {
+          flex: 1;
+          padding: 10px 0 10px 15px;
+          span {
+            color: var(--colorFg5);
+          }
+
+          .tit-product {
+            font-size: 0.937rem;
+            line-height: 1.6;
+            font-weight: 500;
+          }
+        }
+      }
+      .user-wrap {
+        margin: 20px 0 40px;
+        .search-btn {
+          border: 1px solid var(--colorFg2);
+          border-radius: 3px;
+          padding: 10px 20px;
+          background: transparent;
+          font-size: 0.937rem;
+          transition: ease 0.25s;
+          color: var(--font-color);
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+          }
+        }
+        .user-list-wrap {
+          max-height: 200px;
+          min-height: 100%;
+          overflow-y: scroll;
+          border-top: 1px solid var(--colorFg2);
+          border-bottom: 1px solid var(--colorFg2);
+
+          input {
+            display: none;
+
+            &:checked + label {
+              background-color: var(--colorFg14);
+              border-radius: 4px;
+            }
+          }
+
+          label {
+            @include flex($just: flex-start);
+
+            padding: 20px 10px;
+            cursor: pointer;
+
+            .user-img {
+              width: 35px;
+              min-width: 35px;
+              border-radius: 50%;
+              overflow: hidden;
+              .img {
+                padding-top: 100%;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-color: #ddd;
+              }
+            }
+
+            .user-name {
+              flex: 1;
+              padding-left: 10px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+
+      .field {
+        margin: 40px 0;
+
+        &.wngField {
+          @include wngField;
+          .review-write {
+            @include wngField;
+          }
+        }
+        .choose-buyer {
+          @include flex($just: space-between);
+          margin-bottom: 20px;
+          .buyer {
+            @include flex($just: flex-start);
+            flex: 1;
+            max-width: 70%;
+            .buyer-img {
+              width: 35px;
+              min-width: 35px;
+              border-radius: 50%;
+              overflow: hidden;
+              .img {
+                padding-top: 100%;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-color: #ddd;
+              }
+            }
+            .buyer-name {
+              flex: 1;
+              padding-left: 10px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            }
+          }
+          .before-btn {
+            padding: 10px 20px;
+            border-radius: 3px;
+            margin-left: 20px;
+            border: 1px solid var(--colorFg2);
+            background: var(--colorFg8);
+            color: var(--font-color);
+
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.03);
+            }
+          }
+        }
+        .review-write {
+          position: relative;
+          textarea {
+            @include textareaForm;
+            min-height: 150px;
+          }
+          .number {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            font-size: 0.812rem;
+          }
+        }
+
+        em {
+          display: none;
+        }
+      }
+
+      .btn-wrap {
+        @include flex($just: flex-end);
+        button {
+          margin-left: 10px;
+          border: 1px solid #10cfc9;
+          background-color: transparent;
+          padding: 15px 30px;
+          border-radius: 4px;
+          font-weight: 600;
+          letter-spacing: 1px;
+          font-size: 1rem;
+          transition: ease 0.25s;
+
+          &.cancel-btn {
+            border: 1px solid var(--colorFg2);
+            background: var(--colorFg8);
+            color: var(--font-color);
+
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.03);
+            }
+          }
+
+          &.submit-btn {
+            background-color: $main-color;
+            color: #fff;
+
+            &:hover {
+              background-color: $dark-main;
+              border-color: $dark-main;
+            }
+
+            &:disabled {
+              cursor: default;
+              opacity: 0.45;
+
+              &:hover {
+                background-color: $main-color;
+                border-color: $main-color;
+              }
+            }
+          }
+
+          &.close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border: none;
+            margin: 0;
+
+            svg {
+              fill: var(--font-color);
+              width: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
   @media screen and (max-width: 767px) {
+    padding: 20px 0;
     .list-content {
-      width: calc((100% - 30px) / 2);
+      width: 100%;
+      margin-right: 0;
+      a {
+        @include flex($just: flex-start);
+        @include wrap;
+        padding: 10px;
+
+        .product-img {
+          min-width: 100px;
+          border-radius: 3px;
+          overflow: none;
+          margin: 0;
+
+          .img-inner {
+            padding-top: 100%;
+          }
+        }
+
+        .product-info {
+          padding: 0 0 0 15px;
+          flex: 1;
+        }
+      }
 
       &:nth-child(2n) {
         margin-right: 0;
@@ -159,6 +469,24 @@
 
       &:nth-child(3n) {
         margin-right: 30px;
+      }
+    }
+    .write-review-modal {
+      .write-inner {
+        width: 100vw;
+        box-sizing: border-box;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+
+        .btn-wrap {
+          margin-top: auto;
+          .cancel-btn,
+          .submit-btn {
+            width: 50%;
+          }
+        }
       }
     }
   }
@@ -250,6 +578,9 @@
           color: var(--font-color);
         }
       }
+    }
+    @media screen and (max-width: 767px) {
+      @include wrap;
     }
   }
 }
@@ -483,4 +814,8 @@
       width: calc(100% - 40px);
     }
   }
+}
+
+// 모달
+.completion-modal {
 }

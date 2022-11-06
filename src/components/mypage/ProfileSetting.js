@@ -6,7 +6,6 @@ export default function ProfileSetting() {
   const [userImg, setUserImg] = useState("/img/profile.webp");
   // eslint-disable-next-line no-unused-vars
   const [file, setFile] = useState();
-  console.log(userImg);
   const hiddenFileInput = useRef(null);
   const handleChange = (e) => {
     if (e.target.files[0]) {

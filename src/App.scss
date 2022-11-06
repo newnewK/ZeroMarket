@@ -20,6 +20,15 @@
       display: none;
     }
   }
+
+  &.scroll-non {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  main {
+    padding-top: 70px;
+  }
 }
 
 .footer {

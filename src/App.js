@@ -22,6 +22,7 @@ import Review from "./components/mypage/Review";
 import ProfileSetting from "./components/mypage/ProfileSetting";
 import ZeroSite from "./components/ZeroSite";
 import ZeroDetail from "./components/ZeroDetail";
+import WriteProduct from "./components/WriteProduct";
 
 function App() {
   let [theme, setTheme] = useState(true);
@@ -44,15 +45,29 @@ function App() {
     setSearch(false);
   };
 
+  let [scrollNon, setScrollNon] = useState(false);
+  let handleScrollNon = () => {
+    setScrollNon(true);
+  };
+  let hadndleScroll = () => {
+    setScrollNon(false);
+  };
+
   return (
     <div
-      className={`App ${theme === false ? "dark-theme" : ""} ${
-        search ? "search-open" : ""
-      }`}
+      className={`App 
+      ${theme === false ? "dark-theme" : ""} 
+      ${search ? "search-open" : ""}
+      ${scrollNon ? "scroll-non" : ""}`}
     >
-      {current === "/chatting" ? null : (
-        <Header light={light} dark={dark} openSearch={openSearch} />
-      )}
+      <Header
+        light={light}
+        dark={dark}
+        current={current}
+        openSearch={openSearch}
+        handleScrollNon={handleScrollNon}
+        hadndleScroll={hadndleScroll}
+      />
 
       <Routes>
         <Route path="/" element={<Main />} />
@@ -63,11 +78,36 @@ function App() {
           <Route path="pw" element={<FindUserPw />} />
         </Route>
         <Route path="/product/:id" element={<Product />} />
+        <Route
+          path="/write-product"
+          element={
+            <WriteProduct
+              handleScrollNon={handleScrollNon}
+              hadndleScroll={hadndleScroll}
+            />
+          }
+        />
         <Route path="/zeroSite" element={<ZeroSite />} />
         <Route path="/zeroDetail/:id" element={<ZeroDetail />} />
         <Route path="/profile" element={<Mypage />}>
-          <Route path="sale" element={<Sale />} />
-          <Route path="completed" element={<Completed />} />
+          <Route
+            path="sale"
+            element={
+              <Sale
+                handleScrollNon={handleScrollNon}
+                hadndleScroll={hadndleScroll}
+              />
+            }
+          />
+          <Route
+            path="completed"
+            element={
+              <Completed
+                handleScrollNon={handleScrollNon}
+                hadndleScroll={hadndleScroll}
+              />
+            }
+          />
           <Route path="review" element={<Review />} />
         </Route>
         <Route path="/setting" element={<ProfileSetting />} />

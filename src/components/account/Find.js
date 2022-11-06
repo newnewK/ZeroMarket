@@ -11,7 +11,7 @@ export default function Find() {
   ];
 
   return (
-    <section className="find-wrap">
+    <main className="find-wrap">
       <div className="find-inner">
         <div className="top-wrap">
           {/* <h2 className="find-title">아이디&#183;비밀번호 찾기</h2> */}
@@ -32,6 +32,6 @@ export default function Find() {
           <Outlet></Outlet>
         </div>
       </div>
-    </section>
+    </main>
   );
 }

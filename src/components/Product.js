@@ -65,8 +65,8 @@ export default function Product() {
         )}
       </div>
       <div className="product-info">
-        <h3 className="tit">Title ~~ 제목 내용 들어오깅</h3>
-        <span className="category">카테고리 &#183; 4일전</span>
+        <span className="category">카테고리</span>
+        <h3 className="tit">제목 내용 들어오깅</h3>
         <h5 className="price">5,000 원</h5>
         <div className="txt-wrap">
           <p className="info-txt">어쩌고~ 어쩌고~ 얄랴얄라</p>
@@ -91,6 +91,99 @@ export default function Product() {
           </Link>
         </div>
       ) : null}
+
+      <section className="category-order-list">
+        <div className="order-list-top">
+          <h5 className="tit">
+            <span>현재 카테고리명</span> 다른 상품
+          </h5>
+          <button className="more-btn">더보기</button>
+        </div>
+        <div className="order-list">
+          <div className="list">
+            <Link to="/product/:id">
+              <div className="thumb">
+                <span className="screen-out">상품 이미지</span>
+                <div
+                  className="thumb-img"
+                  style={{ backgroundImage: `url()` }}
+                ></div>
+              </div>
+              <div className="product-info-txt">
+                <em className="category">테크가전</em>
+                <p className="tit">title</p>
+                <span className="price">price</span>
+              </div>
+            </Link>
+          </div>
+          {/*  */}
+          <div className="list">
+            <Link to="/product/:id">
+              <div className="thumb">
+                <span className="screen-out">상품 이미지</span>
+                <div
+                  className="thumb-img"
+                  style={{ backgroundImage: `url()` }}
+                ></div>
+              </div>
+              <div className="product-info-txt">
+                <em className="category">테크가전</em>
+                <p className="tit">title</p>
+                <span className="price">price</span>
+              </div>
+            </Link>
+          </div>
+          <div className="list">
+            <Link to="/product/:id">
+              <div className="thumb">
+                <span className="screen-out">상품 이미지</span>
+                <div
+                  className="thumb-img"
+                  style={{ backgroundImage: `url()` }}
+                ></div>
+              </div>
+              <div className="product-info-txt">
+                <em className="category">테크가전</em>
+                <p className="tit">title</p>
+                <span className="price">price</span>
+              </div>
+            </Link>
+          </div>
+          <div className="list">
+            <Link to="/product/:id">
+              <div className="thumb">
+                <span className="screen-out">상품 이미지</span>
+                <div
+                  className="thumb-img"
+                  style={{ backgroundImage: `url()` }}
+                ></div>
+              </div>
+              <div className="product-info-txt">
+                <em className="category">테크가전</em>
+                <p className="tit">title</p>
+                <span className="price">price</span>
+              </div>
+            </Link>
+          </div>
+          <div className="list">
+            <Link to="/product/:id">
+              <div className="thumb">
+                <span className="screen-out">상품 이미지</span>
+                <div
+                  className="thumb-img"
+                  style={{ backgroundImage: `url()` }}
+                ></div>
+              </div>
+              <div className="product-info-txt">
+                <em className="category">테크가전</em>
+                <p className="tit">title</p>
+                <span className="price">price</span>
+              </div>
+            </Link>
+          </div>
+          {/*  */}
+        </div>
+      </section>
     </main>
   );
 }

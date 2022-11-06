@@ -297,3 +297,71 @@
     }
   }
 }
+
+// 가입후 모달
+.completed-signUp-wrap {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.25);
+
+  .inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    background-color: var(--primary-color);
+    padding: 40px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--colorFg2);
+
+    .tit {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    p {
+      margin: 15px 0 40px;
+      color: var(--colorFg5);
+      font-size: 1rem;
+    }
+
+    .btn-wrap {
+      @include flex($just: flex-end);
+
+      .close-btn {
+        position: absolute;
+        right: 30px;
+        top: 40px;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+
+        svg {
+          width: 20px;
+          fill: var(--font-color);
+        }
+      }
+
+      .login-btn {
+        padding: 10px 20px;
+        background-color: $main-color;
+        color: #fff;
+        font-weight: 500;
+        font-size: 1rem;
+        letter-spacing: 1px;
+      }
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .inner {
+      width: calc(100% - 40px);
+    }
+  }
+}

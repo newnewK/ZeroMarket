@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./../../css/SignUp.modules.scss";
 import { useSelector } from "react-redux";
 
@@ -27,8 +27,6 @@ export default function SignUp() {
     setCheckOverlap(0);
   };
 
-  console.log("체인지", checkOverlap);
-
   let blurId = () => {
     if (userId === "" || userId.length < 5 || userId.length > 20) {
       setIdWng(true);
@@ -40,7 +38,7 @@ export default function SignUp() {
 
   let checkIdOverlap = () => {
     // 중복이 아닐경우 1
-    setCheckOverlap(2);
+    setCheckOverlap(1);
     // 중복일 경우 2
   };
 
@@ -124,6 +122,23 @@ export default function SignUp() {
     }
   };
 
+  // 닉네임 - 초기값, 경고
+  let [userNickName, setUSerNickName] = useState("");
+  let [nickWng, setNickWng] = useState(false);
+  let cahngeNickName = (e) => {
+    setUSerNickName(e.target.value);
+    if (userNickName.length >= 2) {
+      setNickWng(false);
+    }
+  };
+  let blurNickName = () => {
+    if (userNickName === "" || userNickName.length <= 1) {
+      setNickWng(true);
+    } else {
+      setNickWng(false);
+    }
+  };
+
   // 이름 - 초기값, 경고, value change, 블러
   let [userName, setUserName] = useState("");
   let [nameWng, setNameWng] = useState(false);
@@ -137,7 +152,6 @@ export default function SignUp() {
       setNameWng(false);
     }
   };
-  console.log("이름", userName.length);
 
   let blurName = () => {
     if (userName === "" || userName.length <= 1) {
@@ -175,7 +189,6 @@ export default function SignUp() {
     return state.terms;
   });
   let [termsDesc, setTermsDesc] = useState([false, false]);
-
   let [checkTerms, setCheckTerms] = useState([]);
 
   // 낱개 선택
@@ -197,17 +210,25 @@ export default function SignUp() {
       setCheckTerms([]);
     }
   };
-  console.log("체크", checkTerms);
 
   // 가입 완료 버튼 - 초기값,
-  let [submitBtn, setSubmitBtn] = useState(false);
-  let essential = () => {
-    // 이름이 2자 이상 ()
+  let essentialCompletion =
+    checkOverlap === 1 &&
+    userPw === matchPw &&
+    userNickName.length > 1 &&
+    userNickName.length < 21 &&
+    userName.length > 1 &&
+    cellN.length === 11 &&
+    checkTerms.length === 2;
+
+  // 회원가입 완료 모달
+  let [welcomeM, setWelcomM] = useState(false);
+  let closeModal = () => {
+    setWelcomM(false);
   };
-  // 아이디가 넘어가고, 비밀번호를 다 완료했을 때,
 
   return (
-    <section className="sign-up-warp">
+    <main className="sign-up-warp">
       <div className="sign-up-inner">
         <p className="welcome-txt">
           &#128075;<span>제로마켓에 오신 것을 환영합니다.</span>
@@ -259,10 +280,8 @@ export default function SignUp() {
             <label>비밀번호</label>
             <div className={`field ${wngUserPw === true ? "wngPw" : ""}`}>
               <input
-                autoComplete="on"
                 type={viewUserpw === true ? "text" : "password"}
                 placeholder="비밀번호 입력"
-                pattern="[a-zA-Z0-9]"
                 className="pw"
                 value={userPw}
                 onChange={changeUserPW}
@@ -284,7 +303,6 @@ export default function SignUp() {
             </div>
             <div className="field">
               <input
-                autoComplete="on"
                 type={viewMP === true ? "text" : "password"}
                 placeholder="비밀번호 확인"
                 className="pw"
@@ -307,6 +325,17 @@ export default function SignUp() {
                 확인해주세요
               </em>
             </div>
+          </div>
+          <div className={`field ${nickWng ? "wngField" : ""}`}>
+            <label>닉네임</label>
+            <input
+              type="text"
+              placeholder="닉네임 입력"
+              value={userNickName}
+              onChange={cahngeNickName}
+              onBlur={blurNickName}
+            />
+            <em>2자 이상, 20자 이내로 입력해주세요.</em>
           </div>
           <div className={`field ${nameWng ? "wngField" : ""}`}>
             <label>이름</label>
@@ -389,9 +418,14 @@ export default function SignUp() {
             })}
           </section>
           <button
-            type="sumbit"
-            className={`signUp-submit-btn ${submitBtn === true ? "onBtn" : ""}`}
-            disabled={!submitBtn}
+            type="button"
+            className={`signUp-submit-btn ${
+              essentialCompletion === true ? "onBtn" : ""
+            }`}
+            disabled={essentialCompletion ? false : true}
+            onClick={() => {
+              setWelcomM(true);
+            }}
           >
             완료
           </button>
@@ -408,6 +442,43 @@ export default function SignUp() {
         {/* 중복 "overlap-id" 노중복 "not-overlap-id" */}
         {checkOverlap === 1 ? "아이디 인증이 완료되었습니다" : ""}
         {checkOverlap === 2 ? "이미 사용중인 아이디입니다" : ""}
+      </div>
+      {welcomeM ? <CompletedSignUp closeModal={closeModal} /> : null}
+    </main>
+  );
+}
+
+function CompletedSignUp({ closeModal }) {
+  let navigate = useNavigate();
+
+  return (
+    <section className="completed-signUp-wrap">
+      <div className="inner">
+        <h2 className="tit">반가워요 :&#41; </h2>
+        <p>제로마켓 가입이 완료되었습니다.</p>
+        <div className="btn-wrap">
+          <button type="button" className="close-btn" onClick={closeModal}>
+            <span className="screen-out">닫기</span>
+            <svg
+              id="Outlined"
+              viewBox="0 0 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="Fill">
+                <polygon points="28.71 4.71 27.29 3.29 16 14.59 4.71 3.29 3.29 4.71 14.59 16 3.29 27.29 4.71 28.71 16 17.41 27.29 28.71 28.71 27.29 17.41 16 28.71 4.71" />
+              </g>
+            </svg>
+          </button>
+          <button
+            className="login-btn"
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            로그인
+          </button>
+          {/* <Link to="/login">로그인</Link> */}
+        </div>
       </div>
     </section>
   );

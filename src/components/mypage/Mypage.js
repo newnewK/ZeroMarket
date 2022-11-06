@@ -1,14 +1,38 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./../../css/Mypage.modules.scss";
 
 export default function Mypage() {
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+  });
+  useEffect(() => {
+    let resizeTimer;
+    let windowSizer = () => {
+      resizeTimer = setTimeout(() => {
+        setWindowSize({
+          width: document.body.clientWidth,
+        });
+      }, 300);
+    };
+    window.addEventListener("resize", windowSizer);
+    console.log(windowSize.width);
+
+    return () => {
+      clearTimeout(resizeTimer);
+      window.removeEventListener("resize", windowSizer);
+    };
+  }, [windowSize]);
+
   const location = useLocation();
-  console.log(location.pathname);
   let current = location.pathname;
+
+  const navigate = useNavigate();
 
   const mypageTab = [
     { id: "sale", name: "판매중" },
-    { id: "completed", name: "거래완료" },
+    { id: "completed", name: "판매완료" },
+    // { id: "completed", name: "구매" },
     { id: "review", name: "거래후기" },
   ];
   return (
@@ -24,18 +48,34 @@ export default function Mypage() {
             <div className="profile">
               <h5 className="name">닉네임</h5>
               {/* 자신의 마이페이지인 경우만 보일 것! */}
-              <button className="profile-setting" type="button">
-                프로필 편집
-              </button>
+              {windowSize.width > 768 ? (
+                <button
+                  className="profile-setting"
+                  type="button"
+                  onClick={() => {
+                    navigate("/setting");
+                  }}
+                >
+                  프로필 편집
+                </button>
+              ) : null}
             </div>
 
             <p className="intro">자기 소개 ~~~</p>
           </div>
         </div>
         {/* 자신의 마이페이지인 경우만 보일 것! */}
-        <button className="mobile-setting" type="button">
-          프로필 편집
-        </button>
+        {windowSize.width < 768 ? (
+          <button
+            className="mobile-setting"
+            type="button"
+            onClick={() => {
+              navigate("/setting");
+            }}
+          >
+            프로필 편집
+          </button>
+        ) : null}
       </div>
       <div className="mypage-tab-container">
         <ul className="mypage-tabs">

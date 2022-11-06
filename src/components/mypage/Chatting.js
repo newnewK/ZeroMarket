@@ -50,7 +50,7 @@ export default function Chatting() {
   let [modal, setModal] = useState(false);
 
   return (
-    <main className="chatting-wrap">
+    <section className="chatting-wrap">
       <div className="chat-header">
         <div className="header-inner">
           <button
@@ -233,6 +233,6 @@ export default function Chatting() {
           </div>
         </div>
       </div>
-    </main>
+    </section>
   );
 }

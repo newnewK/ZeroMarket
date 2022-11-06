@@ -1,12 +1,58 @@
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./../css/Main.modules.scss";
 
 export default function Main() {
+  let scrollRef = useRef(null);
+  let [isDrag, setIsDrag] = useState(false);
+  let [startX, setStartX] = useState();
+  let onDragStart = (e) => {
+    e.preventDefault();
+    setIsDrag(true);
+    setStartX(e.pageX + scrollRef.current.scrollLeft);
+  };
+  let onDragEnd = () => {
+    setIsDrag(false);
+  };
+  let onDragMove = (e) => {
+    if (isDrag) {
+      let { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
+      scrollRef.current.scrollLeft = startX - e.pageX;
+
+      if (scrollLeft === 0) {
+        setStartX(e.pageX);
+      } else if (scrollWidth <= clientWidth + scrollLeft) {
+        setStartX(e.pageX + scrollLeft);
+      }
+    }
+  };
+
+  let throttle = (func, ms) => {
+    let throttled = false;
+    return (...args) => {
+      if (!throttled) {
+        throttled = true;
+        setTimeout(() => {
+          func(...args);
+          throttled = false;
+        }, ms);
+      }
+    };
+  };
+  let onThrottleDragMove = throttle(onDragMove);
+
   return (
     <main className="main-wrap">
       <section className="main-inner">
         <h2 className="title">제로 마켓</h2>
-        <ul className="tab-nav">
+        <ul
+          className="tab-nav"
+          ref={scrollRef}
+          onMouseDown={onDragStart}
+          onMouseMove={isDrag ? onThrottleDragMove : null}
+          onMouseUp={onDragEnd}
+          onMouseLeave={onDragEnd}
+        >
           <li className="on">전체</li>
           <li>패션&#183;잡화</li>
           <li>테크&#183;가전</li>
@@ -25,11 +71,9 @@ export default function Main() {
                 </div>
               </div>
               <div className="txt">
-                <p className="tit">가방팔아용~~</p>
                 <em className="category">패션잡화</em>
-                <span className="price">
-                  5,000 <em>원</em>
-                </span>
+                <p className="tit">가방팔아용~~</p>
+                <span className="price">5,000 원</span>
               </div>
             </Link>
           </div>
@@ -44,8 +88,8 @@ export default function Main() {
                     </div>
                   </div>
                   <div className="txt">
+                    <em className="category">테크가전</em>
                     <p className="tit">title</p>
-                    <em className="category">category</em>
                     <span className="price">price</span>
                   </div>
                 </Link>

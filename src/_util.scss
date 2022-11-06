@@ -15,7 +15,7 @@ $dark-main: #00bbb4;
 // theme
 :root {
   --primary-color: #fff;
-  --font-color: #282a31;
+  --font-color: #111;
   --hover-bg: #edeeed;
   --non-hover: #878888;
   --icon-bg: #333;
@@ -28,6 +28,7 @@ $dark-main: #00bbb4;
   --id-change-border: #cdd3d8;
   --id-change-color: #495057;
   --id-change-hover: #e9ecef;
+  --placeholder-color: rgba(0, 0, 0, 0.15);
   --colorFg1: #666;
   --colorFg2: #edeeed;
   --colorFg3: #fff;
@@ -46,12 +47,13 @@ $dark-main: #00bbb4;
   --colorFg16: #44484b;
   --colorFg17: #60656a;
   --colorFg18: #edeeed;
-  --colorFg19: #f5f7fa;
+  --colorFg19: #f0f2f5;
   --colorFg20: #e6eaed;
   --colorFg21: #fff;
   --colorFg22: rgba(0, 0, 0, 0.54);
   --colorFg23: #f9f9f9;
-
+  --colorFg24: #90949c;
+  --colorFg25: #f2f4f6;
   // rgba(0, 0, 0, 0.54)
 }
 
@@ -70,6 +72,7 @@ $dark-main: #00bbb4;
   --id-change-border: #5c5f62;
   --id-change-color: #d8dadc;
   --id-change-hover: transparent;
+  --placeholder-color: rgba(255, 255, 255, 0.15);
   --colorFg1: #999;
   --colorFg2: #222224;
   --colorFg3: #121212;
@@ -93,6 +96,8 @@ $dark-main: #00bbb4;
   --colorFg21: #363636;
   --colorFg22: rgba(255, 255, 255, 0.75);
   --colorFg23: #000;
+  --colorFg24: #676a71;
+  --colorFg25: #181818;
 
   // #f2f4f6
 }
@@ -143,26 +148,20 @@ textarea {
 
 //common Wrap
 @mixin wrap {
-  max-width: 1296px;
-  min-width: 1296px;
+  max-width: 1140px;
   margin: 0 auto;
+  box-sizing: border-box;
   @media screen and (max-width: 1439px) {
     max-width: 952px;
-    min-width: 952px;
   }
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     max-width: 900px;
-    min-width: 900px;
   }
   @media screen and (max-width: 950px) {
     max-width: calc(100vw - 80px);
-    min-width: calc(100vw - 80px);
-  }
-  @media screen and (max-width: 767px) {
-    max-width: calc(100vw - 40px);
-    min-width: calc(100vw - 40px);
   }
 }
+
 @mixin detail-wrap {
   max-width: 630px;
   min-width: 630px;
@@ -266,10 +265,52 @@ textarea {
     font-weight: 300;
   }
 }
+@mixin textareaForm {
+  resize: none;
+  width: 100%;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--colorFg8);
+  color: var(--font-color);
+  min-height: 100px;
+  border: 1px solid var(--colorFg9);
+  position: relative;
+  padding: 10px 10px 30px 10px;
+  box-sizing: border-box;
+  font-size: 1rem;
+
+  &:hover {
+    border-color: var(--colorFg10);
+  }
+
+  &:focus {
+    border-color: $main-color;
+  }
+
+  &::placeholder {
+    color: var(--colorFg13);
+    font-weight: 400;
+  }
+}
 @mixin wngField {
   input {
     border-color: var(--colorFg7);
     background: rgba(255, 155, 155, 0.06);
+
+    &:hover {
+      border-color: var(--colorFg7);
+    }
+  }
+
+  textarea {
+    border-color: var(--colorFg7);
+    background: rgba(255, 155, 155, 0.06);
+
+    &:focus {
+      border-color: var(--colorFg7);
+    }
+    &:hover {
+      border-color: var(--colorFg7);
+    }
   }
 
   em {
@@ -349,15 +390,15 @@ textarea {
     @include txt-overflow;
     font-weight: 400;
     color: var(--font-color);
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: 0.937rem;
+    line-height: 1.6;
   }
   .category {
     font-size: 0.812rem;
     color: var(--colorFg5);
     display: block;
     font-weight: 400;
-    padding: 0 0 10px;
+    line-height: 1.6;
   }
   .price {
     font-weight: 700;
@@ -481,5 +522,121 @@ textarea {
     font-size: 0.937rem;
     font-weight: 400;
     color: var(--font-color);
+  }
+}
+
+.completion-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+
+  .completion-inner {
+    background-color: var(--primary-color);
+    min-width: 300px;
+    max-width: 500px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    margin: 100px auto;
+    padding: 30px;
+    position: relative;
+    border: 1px solid var(--colorFg24);
+
+    .closeModal {
+      background-color: transparent;
+      padding: 20px;
+      position: absolute;
+      left: 7px;
+      top: 20px;
+
+      svg {
+        fill: var(--font-color);
+        width: 20px;
+      }
+    }
+
+    .title {
+      padding-top: 40px;
+      color: #44484b;
+      margin-bottom: 0;
+    }
+
+    .txt {
+      margin: 0;
+      padding-top: 5px;
+      color: var(--colorFg22);
+      font-size: 1.062rem;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .login-go {
+      @include flex($just: flex-end);
+
+      .go-to-login {
+        display: inline-block;
+        background-color: $main-color;
+        padding: 10px 15px;
+        color: #fff;
+        border-radius: 3px;
+        margin-top: 30px;
+        font-weight: 400;
+        letter-spacing: 1px;
+        transition: 0.25s ease;
+
+        &:hover {
+          //   background: $dark-main-color;
+        }
+      }
+    }
+
+    .btn-wrap {
+      button {
+        &.cancel-btn {
+          border: 1px solid var(--colorFg2);
+          background: var(--colorFg8);
+          color: var(--font-color);
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+          }
+        }
+
+        &.submit-btn {
+          background-color: $main-color;
+          color: #fff;
+
+          &:hover {
+            background-color: $dark-main;
+            border-color: $dark-main;
+          }
+        }
+
+        &.close-btn {
+          position: absolute;
+          right: 20px;
+          top: 20px;
+          width: 40px;
+          height: 40px;
+          padding: 0;
+          border: none;
+          margin: 0;
+
+          svg {
+            fill: var(--font-color);
+            width: 20px;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .completion-inner {
+      max-width: calc(100vw - 40px);
+      box-sizing: border-box;
+    }
   }
 }
